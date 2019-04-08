@@ -20,9 +20,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow?
     var controller: MainViewController?
-    //var windowController = MainWindowController()
 
-    var coordinator = Coordinator()
+    var fickle = FickleApp()
 
     // MARK: - Lifecycle
 
@@ -59,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.isOpaque = false
 
         controller = MainViewController()
-        controller?.coordinator = coordinator
+        controller?.fickle = fickle
 
         let content = window.contentView! as NSView
         let view = controller?.view
@@ -67,6 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         window.contentViewController = controller
 
+        fickle.mainWindow = window
         self.window = window
     }
 
@@ -99,7 +99,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func buttonClicked(_ sender: NSStatusBarButton) {
 
         guard let window = window else {
-            os_log("%{public}s", log: logger, type: .error, "unable to load window.")
+            os_log("%{public}s", log: logger, type: .error, "unable to load window")
             return
         }
 
@@ -113,9 +113,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameTopLeftPoint(newLoc)
         window.makeKeyAndOrderFront(nil)
         window.level = .statusBar
-        return
-
     }
 
 }
-

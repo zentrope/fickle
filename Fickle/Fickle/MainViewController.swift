@@ -11,11 +11,20 @@ import os.log
 
 fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "MainViewController")
 
+class AppearanceView: NSView {
+
+    @objc dynamic var isDark = false
+
+    override func viewDidChangeEffectiveAppearance() {
+        isDark = effectiveAppearance.name == .darkAqua
+    }
+}
+
 class MainViewController: NSViewController {
 
     // MARK: - Controls
 
-    lazy var toggle: NSSegmentedControl = {
+    private lazy var toggle: NSSegmentedControl = {
         let control = NSSegmentedControl()
         control.segmentCount = 2
         control.setLabel("Light", forSegment: 0)
@@ -29,7 +38,7 @@ class MainViewController: NSViewController {
         return control
     }()
 
-    lazy var dismissButton: NSButton = {
+    private lazy var dismissButton: NSButton = {
         let button = NSButton()
         button.bezelStyle = .texturedSquare
         button.isBordered = false
@@ -38,11 +47,10 @@ class MainViewController: NSViewController {
         button.image = NSImage(named: NSImage.stopProgressFreestandingTemplateName)
         button.setButtonType(NSButton.ButtonType.momentaryPushIn)
         button.isEnabled = true
-
         return button
     }()
 
-    lazy var quitButton: NSButton = {
+    private lazy var quitButton: NSButton = {
         let button = NSButton()
         button.bezelStyle = NSButton.BezelStyle.roundRect
         button.target = self
@@ -53,15 +61,16 @@ class MainViewController: NSViewController {
         return button
     }()
 
-    var tableContainer = MainTableView()
+    private var tableContainer = MainTableView()
 
     // MARK: - Coordinator
-    var coordinator: Coordinator?
+
+    var fickle: FickleApp?
 
     // MARK: - Lifecycle
 
     override func loadView() {
-        let view = NSView(frame: NSMakeRect(0, 0, 400, 600))
+        let view = AppearanceView(frame: NSMakeRect(0, 0, 400, 600))
         view.wantsLayer = true
         self.view = view
     }
@@ -69,11 +78,16 @@ class MainViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        toggle.selectedSegment = (coordinator?.isDark())! ? 1 : 0
+        //toggle.selectedSegment = (coordinator?.isDark())! ? 1 : 0
+
+        toggle.selectedSegment = view.effectiveAppearance.name == .darkAqua ? 1 : 0
 
         setupLayout()
-        setupTableView()
+        setupAppearanceObserver()
+        dismissButton.target = self
+        toggle.target = self
     }
+
 
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -85,7 +99,19 @@ class MainViewController: NSViewController {
 
     // MARK: - Implementation
 
-    private func setupTableView() {
+    private var observer: NSKeyValueObservation?
+    private var isDark = false
+
+    private func setupAppearanceObserver() {
+        isDark = view.effectiveAppearance.name == .darkAqua
+
+        if let aView = view as? AppearanceView {
+            observer = aView.observe(\.isDark, options: [.new, .old]) { (view, change) in
+                if let flag = change.newValue {
+                    self.toggle.selectedSegment = flag ? 1 : 0
+                }
+            }
+        }
     }
 
     private func setupLayout() {
@@ -129,33 +155,19 @@ class MainViewController: NSViewController {
 
     // MARK: - Actions
 
-    @objc func onQuit(_ sender: Any) {
-        os_log("%{public}s", log: logger, "button quit")
-        coordinator?.quit()
+    @objc func onQuit(_ sender: NSButton) {
+        os_log("%{public}s", log: logger, "user clicked quit button")
+        fickle?.quit()
     }
 
-    @objc func onCloseButton(_ sender: Any?) {
-        self.view.window?.orderOut(self)
+    @objc func onCloseButton(_ sender: NSButton) {
+        os_log("%{public}s", log: logger, "user clicked close button")
+        fickle?.close()
     }
 
     @objc func onAppearanceToggle(_ sender: NSSegmentedControl) {
-
-        guard let coordinator = coordinator else {
-            return
-        }
-
-        switch sender.selectedSegment {
-        case 0:
-            if !coordinator.setAppearance(.light) {
-                sender.selectedSegment = 1
-            }
-        case 1:
-            if !coordinator.setAppearance(.dark) {
-                sender.selectedSegment = 0
-            }
-        default:
-            os_log("%{public}s", log: logger, type: .error, "unable to respond to appearance toggle")
-        }
+        os_log("%{public}s", log: logger, "user clicked appearance toggle button")
+        fickle?.setAppearance(sender.selectedSegment == 0 ? .light : .dark)
     }
 
 }
