@@ -1,6 +1,14 @@
 # Fickle
 
-Challenge: Make a switcher app to adjust both dark/light mode and the background picture to my taste. The main idea is to.
+Challenge: Make a switcher app to adjust both dark/light mode and the background picture to my taste.
+
+Goals:
+
+ - Menu app
+ - No interface builder
+ - Use AppleScript to update appearance
+ - Drag/drop images
+ - App Sandbox compatible
 
 ## License
 
