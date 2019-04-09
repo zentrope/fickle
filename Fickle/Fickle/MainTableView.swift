@@ -20,7 +20,7 @@ class GridClipTableView: NSTableView {
 
 class MainTableView: NSView {
 
-    var container = NSScrollView()
+    private var container = NSScrollView()
 
     convenience init() {
         self.init(frame: NSZeroRect)

@@ -1,5 +1,5 @@
 //
-//  FickleApp.swift
+//  AppController.swift
 //  Fickle
 //
 //  Created by Keith Irwin on 4/7/19.
@@ -12,7 +12,7 @@ import os.log
 
 fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "Coordinator")
 
-class FickleApp: NSObject {
+class AppController: NSObject {
 
     weak var mainWindow: NSWindow?
 
@@ -25,7 +25,7 @@ class FickleApp: NSObject {
         super.init()
     }
 
-    func setAppearance(_ mode: FickleApp.AppearanceMode) {
+    func setAppearance(_ mode: AppController.AppearanceMode) {
         switch mode {
         case .light:
             os_log("%{public}s", log: logger, "setting appearance to light")

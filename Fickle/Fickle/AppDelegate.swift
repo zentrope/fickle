@@ -19,9 +19,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBarItem = NSStatusItem()
 
     var window: NSWindow?
-    var controller: MainViewController?
+    var controller: ViewController?
 
-    var fickle = FickleApp()
+    var appController = AppController()
 
     // MARK: - Lifecycle
 
@@ -57,8 +57,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.maxSize = NSMakeSize(400, 600)
         window.isOpaque = false
 
-        controller = MainViewController()
-        controller?.appController = fickle
+        controller = ViewController()
+        controller?.appController = appController
 
         let content = window.contentView! as NSView
         let view = controller?.view
@@ -66,7 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         window.contentViewController = controller
 
-        fickle.mainWindow = window
+        appController.mainWindow = window
         self.window = window
     }
 

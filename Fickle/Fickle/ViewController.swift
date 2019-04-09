@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  ViewController.swift
 //  Fickle
 //
 //  Created by Keith Irwin on 4/6/19.
@@ -9,9 +9,9 @@
 import Cocoa
 import os.log
 
-fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "MainViewController")
+fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "ViewController")
 
-class MainViewController: NSViewController {
+class ViewController: NSViewController {
 
     // MARK: - Controls
 
@@ -56,7 +56,7 @@ class MainViewController: NSViewController {
 
     // MARK: - AppController
 
-    var appController: FickleApp?
+    var appController: AppController?
 
     // MARK: - Lifecycle
 

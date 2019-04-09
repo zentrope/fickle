@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5301A46F225A74B9000BE649 /* FickleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5301A46E225A74B9000BE649 /* FickleApp.swift */; };
+		5301A46F225A74B9000BE649 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5301A46E225A74B9000BE649 /* AppController.swift */; };
 		5301A471225A9F0D000BE649 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5301A470225A9F0D000BE649 /* main.swift */; };
 		53DFE5D422596DE500911135 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFE5D322596DE500911135 /* AppDelegate.swift */; };
-		53DFE5D622596DE500911135 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFE5D522596DE500911135 /* MainViewController.swift */; };
+		53DFE5D622596DE500911135 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFE5D522596DE500911135 /* ViewController.swift */; };
 		53DFE5D822596DE600911135 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53DFE5D722596DE600911135 /* Assets.xcassets */; };
 		53FBAFB3225AE4320013CA0A /* MainTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBAFB2225AE4320013CA0A /* MainTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5301A46E225A74B9000BE649 /* FickleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FickleApp.swift; sourceTree = "<group>"; };
+		5301A46E225A74B9000BE649 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		5301A470225A9F0D000BE649 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		53DFE5D022596DE500911135 /* Fickle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fickle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53DFE5D322596DE500911135 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		53DFE5D522596DE500911135 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		53DFE5D522596DE500911135 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		53DFE5D722596DE600911135 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53DFE5DC22596DE600911135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53DFE5DD22596DE600911135 /* Fickle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fickle.entitlements; sourceTree = "<group>"; };
@@ -59,8 +59,8 @@
 			children = (
 				5301A470225A9F0D000BE649 /* main.swift */,
 				53DFE5D322596DE500911135 /* AppDelegate.swift */,
-				5301A46E225A74B9000BE649 /* FickleApp.swift */,
-				53DFE5D522596DE500911135 /* MainViewController.swift */,
+				5301A46E225A74B9000BE649 /* AppController.swift */,
+				53DFE5D522596DE500911135 /* ViewController.swift */,
 				53FBAFB2225AE4320013CA0A /* MainTableView.swift */,
 				53DFE5DC22596DE600911135 /* Info.plist */,
 				53DFE5D722596DE600911135 /* Assets.xcassets */,
@@ -146,10 +146,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53DFE5D622596DE500911135 /* MainViewController.swift in Sources */,
+				53DFE5D622596DE500911135 /* ViewController.swift in Sources */,
 				5301A471225A9F0D000BE649 /* main.swift in Sources */,
 				53FBAFB3225AE4320013CA0A /* MainTableView.swift in Sources */,
-				5301A46F225A74B9000BE649 /* FickleApp.swift in Sources */,
+				5301A46F225A74B9000BE649 /* AppController.swift in Sources */,
 				53DFE5D422596DE500911135 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
