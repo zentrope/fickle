@@ -93,8 +93,16 @@ class ViewController: NSViewController {
         }
     }
 
+    private func isDark() -> Bool {
+        return view.effectiveAppearance.name == .darkAqua
+    }
+
+    private func isLight() -> Bool {
+        return !isDark()
+    }
+
     private func setupToggle() {
-        toggle.selectedSegment = view.effectiveAppearance.name == .darkAqua ? 1 : 0
+        toggle.selectedSegment = isDark() ? 1 : 0
     }
 
     private func setupLayout() {
@@ -147,7 +155,14 @@ class ViewController: NSViewController {
     }
 
     @objc func onAppearanceToggle(_ sender: NSSegmentedControl) {
-        appController?.setAppearance(sender.selectedSegment == 0 ? .light : .dark)
+        let goDark = sender.selectedSegment == 1
+        let goLight = sender.selectedSegment == 0
+
+        if isDark() && goLight {
+            appController?.setAppearance(.light)
+        } else if isLight() && goDark {
+            appController?.setAppearance(.dark)
+        }
     }
 
 }

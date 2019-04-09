@@ -7,7 +7,6 @@
 - [ ] Model for storing list of images and appearance modes
 - [ ] Add a context menu for each row (exec, set dark/light pref, delete)
 - [ ] Use a superimposed circle to indicate theme. Double-click to toggle
-- [ ] Don’t send “dark” script if already dark
 
 ## Done
 
@@ -26,3 +25,4 @@
 - [x] Remove button.target = self in `viewDidLoad()` (MainViewController)
 - [x] Rename FickleApp to AppController?
 - [x] Rename `MainViewController` to `ViewController`?
+- [x] Don’t send “dark” script if already dark

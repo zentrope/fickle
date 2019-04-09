@@ -16,24 +16,24 @@ class AppController: NSObject {
 
     weak var mainWindow: NSWindow?
 
+    override init() {
+        super.init()
+    }
+
+    // MARK: - Public Interface
+
     enum AppearanceMode : String {
         case dark = "true"
         case light = "false"
     }
 
-    override init() {
-        super.init()
-    }
-
     func setAppearance(_ mode: AppController.AppearanceMode) {
         switch mode {
         case .light:
-            os_log("%{public}s", log: logger, "setting appearance to light")
-            let _ = sendAppearanceScript(.light)
+            sendAppearanceScript(.light)
 
         case .dark:
-            os_log("%{public}s", log: logger, "setting appearance to dark")
-            let _ = sendAppearanceScript(.dark)
+            sendAppearanceScript(.dark)
         }
     }
 
@@ -45,6 +45,8 @@ class AppController: NSObject {
     func close() {
         mainWindow?.close()
     }
+
+    // MARK: - Implementation details
 
     private let template = """
     tell application "System Events"
@@ -61,7 +63,7 @@ class AppController: NSObject {
             if let msg = script.executeAndReturnError(&error).stringValue {
                 os_log("%{public}s", log: logger, "script return: \(msg)")
             } else {
-                os_log("%{public}s", log: logger, "script executed for \(mode)")
+                os_log("%{public}s", log: logger, "script executed for \(mode) appearance")
             }
             if let error = error {
                 os_log("%{public}s", log: logger, type: .error, "\(error)")
