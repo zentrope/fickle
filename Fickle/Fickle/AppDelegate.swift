@@ -58,7 +58,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.isOpaque = false
 
         controller = MainViewController()
-        controller?.fickle = fickle
+        controller?.appController = fickle
 
         let content = window.contentView! as NSView
         let view = controller?.view

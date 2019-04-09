@@ -11,15 +11,6 @@ import os.log
 
 fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "MainViewController")
 
-class AppearanceView: NSView {
-
-    @objc dynamic var isDark = false
-
-    override func viewDidChangeEffectiveAppearance() {
-        isDark = effectiveAppearance.name == .darkAqua
-    }
-}
-
 class MainViewController: NSViewController {
 
     // MARK: - Controls
@@ -63,14 +54,14 @@ class MainViewController: NSViewController {
 
     private var tableContainer = MainTableView()
 
-    // MARK: - Coordinator
+    // MARK: - AppController
 
-    var fickle: FickleApp?
+    var appController: FickleApp?
 
     // MARK: - Lifecycle
 
     override func loadView() {
-        let view = AppearanceView(frame: NSMakeRect(0, 0, 400, 600))
+        let view = NSView(frame: NSMakeRect(0, 0, 400, 600))
         view.wantsLayer = true
         self.view = view
     }
@@ -78,14 +69,9 @@ class MainViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //toggle.selectedSegment = (coordinator?.isDark())! ? 1 : 0
-
-        toggle.selectedSegment = view.effectiveAppearance.name == .darkAqua ? 1 : 0
-
+        setupToggle()
         setupLayout()
         setupAppearanceObserver()
-        dismissButton.target = self
-        toggle.target = self
     }
 
 
@@ -100,18 +86,15 @@ class MainViewController: NSViewController {
     // MARK: - Implementation
 
     private var observer: NSKeyValueObservation?
-    private var isDark = false
 
     private func setupAppearanceObserver() {
-        isDark = view.effectiveAppearance.name == .darkAqua
-
-        if let aView = view as? AppearanceView {
-            observer = aView.observe(\.isDark, options: [.new, .old]) { (view, change) in
-                if let flag = change.newValue {
-                    self.toggle.selectedSegment = flag ? 1 : 0
-                }
-            }
+        observer = view.observe(\.effectiveAppearance) { (_, _) in
+            self.setupToggle()
         }
+    }
+
+    private func setupToggle() {
+        toggle.selectedSegment = view.effectiveAppearance.name == .darkAqua ? 1 : 0
     }
 
     private func setupLayout() {
@@ -156,18 +139,15 @@ class MainViewController: NSViewController {
     // MARK: - Actions
 
     @objc func onQuit(_ sender: NSButton) {
-        os_log("%{public}s", log: logger, "user clicked quit button")
-        fickle?.quit()
+        appController?.quit()
     }
 
     @objc func onCloseButton(_ sender: NSButton) {
-        os_log("%{public}s", log: logger, "user clicked close button")
-        fickle?.close()
+        appController?.close()
     }
 
     @objc func onAppearanceToggle(_ sender: NSSegmentedControl) {
-        os_log("%{public}s", log: logger, "user clicked appearance toggle button")
-        fickle?.setAppearance(sender.selectedSegment == 0 ? .light : .dark)
+        appController?.setAppearance(sender.selectedSegment == 0 ? .light : .dark)
     }
 
 }

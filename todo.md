@@ -6,18 +6,20 @@
 - [ ] Figure out how to set the desktop image (NSWorkspace)
 - [ ] Model for storing list of images and appearance modes
 - [ ] Add a context menu for each row (exec, set dark/light pref, delete)
+- [ ] Use a superimposed circle to indicate theme. Double-click to toggle
+- [ ] Don’t send “dark” script if already dark
 
 ## Code review
 
-- [ ] Make apple script var private (FickleApp)
-- [ ] Log "script executed" if no message returned (FickleApp)
-- [ ] Remove "isDark" property from view controller (MainViewController)
-- [ ] View controller should observe stock view's `effectiveApperance`, no sub-class (MainViewController)
-- [ ] Removed "user clicked" log messages (MainViewController)
-- [ ] Change pragma "coordinator" to "app controller" or something like that. (MainViewController)
+- [x] Make apple script `let` private (FickleApp)
+- [x] Log "script executed" if no message returned (FickleApp)
+- [x] Remove "isDark" property from view controller (MainViewController)
+- [x] View controller should observe stock view's `effectiveApperance`, no sub-class (MainViewController)
+- [x] Removed "user clicked" log messages (MainViewController)
+- [x] Change pragma "coordinator" to "app controller" or something like that. (MainViewController)
+- [x] Remove button.target = self in `viewDidLoad()` (MainViewController)
 - [ ] Renamed FickleApp to AppController?
-- [ ] Remove button.target = self in `viewDidLoad()` (MainViewController)
-- [ ] Rename "MainViewController" to "ViewController"?
+- [ ] Rename `MainViewController` to `ViewController`?
 
 ## Done
 

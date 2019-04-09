@@ -46,7 +46,7 @@ class FickleApp: NSObject {
         mainWindow?.close()
     }
 
-    let template = """
+    private let template = """
     tell application "System Events"
       tell appearance preferences
         set dark mode to %@
@@ -61,7 +61,7 @@ class FickleApp: NSObject {
             if let msg = script.executeAndReturnError(&error).stringValue {
                 os_log("%{public}s", log: logger, "script return: \(msg)")
             } else {
-                os_log("%{public}s", log: logger, "no message returned from script")
+                os_log("%{public}s", log: logger, "script executed for \(mode)")
             }
             if let error = error {
                 os_log("%{public}s", log: logger, type: .error, "\(error)")
