@@ -11,6 +11,36 @@ import os.log
 
 fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "ViewController")
 
+class DropView: NSView {
+    /// Ditch this an implement appropriate callbacks with tableView delegate.
+
+    var onUpdate: ((URL) -> Void)?
+
+    convenience init(_ onUpdate: @escaping ((URL) -> ())) {
+        self.init(frame: NSMakeRect(0, 0, 400, 600))
+        registerForDraggedTypes([NSPasteboard.PasteboardType.URL])
+        self.onUpdate = onUpdate
+    }
+
+    // MARK: - Drag/Drop handlers
+
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        return .copy
+    }
+
+    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        return .copy
+    }
+
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        let pb = sender.draggingPasteboard
+        if let urls = pb.readObjects(forClasses: [NSURL.self], options: [:]) as? [URL] {
+            urls.forEach { onUpdate?($0) }
+        }
+        return true
+    }
+}
+
 class ViewController: NSViewController {
 
     // MARK: - Controls
@@ -22,7 +52,7 @@ class ViewController: NSViewController {
         control.setLabel("Dark", forSegment: 1)
         control.trackingMode = .selectOne
         control.target = self
-        control.action = #selector(onAppearanceToggle(_:))
+        control.action = #selector(doToggle(_:))
         control.segmentStyle = NSSegmentedControl.Style.roundRect
         control.segmentDistribution = NSSegmentedControl.Distribution.fit
         control.sizeToFit()
@@ -34,7 +64,7 @@ class ViewController: NSViewController {
         button.bezelStyle = .texturedSquare
         button.isBordered = false
         button.target = self
-        button.action = #selector(onCloseButton(_:))
+        button.action = #selector(doClose(_:))
         button.image = NSImage(named: NSImage.stopProgressFreestandingTemplateName)
         button.setButtonType(NSButton.ButtonType.momentaryPushIn)
         button.isEnabled = true
@@ -45,14 +75,14 @@ class ViewController: NSViewController {
         let button = NSButton()
         button.bezelStyle = NSButton.BezelStyle.roundRect
         button.target = self
-        button.action = #selector(onQuit(_:))
+        button.action = #selector(doQuit(_:))
         button.title = "Quit"
         button.isEnabled = true
         button.sizeToFit()
         return button
     }()
 
-    private var tableContainer = MainTableView()
+    private var tableContainer = ImageListView()
 
     // MARK: - AppController
 
@@ -61,7 +91,11 @@ class ViewController: NSViewController {
     // MARK: - Lifecycle
 
     override func loadView() {
-        let view = NSView(frame: NSMakeRect(0, 0, 400, 600))
+        //let view = NSView(frame: NSMakeRect(0, 0, 400, 600))
+        let view = DropView() { [weak self] url in
+            self?.appController?.dropURL(url: url)
+            self?.tableContainer.reload()
+        }
         view.wantsLayer = true
         self.view = view
     }
@@ -72,6 +106,10 @@ class ViewController: NSViewController {
         setupToggle()
         setupLayout()
         setupAppearanceObserver()
+
+        tableContainer.delegate = appController
+        tableContainer.tableDelegate = appController
+        tableContainer.tableDataSource = appController
     }
 
 
@@ -83,6 +121,7 @@ class ViewController: NSViewController {
         super.viewWillDisappear()
     }
 
+    
     // MARK: - Implementation
 
     private var observer: NSKeyValueObservation?
@@ -146,15 +185,15 @@ class ViewController: NSViewController {
 
     // MARK: - Actions
 
-    @objc func onQuit(_ sender: NSButton) {
+    @objc func doQuit(_ sender: NSButton) {
         appController?.quit()
     }
 
-    @objc func onCloseButton(_ sender: NSButton) {
+    @objc func doClose(_ sender: NSButton) {
         appController?.close()
     }
 
-    @objc func onAppearanceToggle(_ sender: NSSegmentedControl) {
+    @objc func doToggle(_ sender: NSSegmentedControl) {
         let goDark = sender.selectedSegment == 1
         let goLight = sender.selectedSegment == 0
 

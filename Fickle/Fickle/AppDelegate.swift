@@ -40,7 +40,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Setup
 
     private func setupWindow() {
-        let size = NSMakeRect(0, 0, 400, 600)
+        let width: CGFloat = 204
+        let size = NSMakeRect(0, 0, width, 600)
         let mask: NSWindow.StyleMask = [.resizable, .fullSizeContentView, .titled]
         let window = NSWindow(contentRect: size, styleMask: mask, backing: .buffered, defer: false)
 
@@ -53,8 +54,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.standardWindowButton(.miniaturizeButton)?.isHidden = true
         window.standardWindowButton(.closeButton)?.isHidden = true
         window.hasShadow = true
-        window.minSize = NSMakeSize(300, 450)
-        window.maxSize = NSMakeSize(400, 600)
+        window.minSize = NSMakeSize(width, 450)
+        window.maxSize = NSMakeSize(width, 600)
         window.isOpaque = false
 
         controller = ViewController()

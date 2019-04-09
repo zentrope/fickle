@@ -2,11 +2,13 @@
 
 ## Active
 
-- [ ] Add drag and drop to acquire background images (works in App Sandbox?)
-- [ ] Figure out how to set the desktop image (NSWorkspace)
-- [ ] Model for storing list of images and appearance modes
 - [ ] Add a context menu for each row (exec, set dark/light pref, delete)
 - [ ] Use a superimposed circle to indicate theme. Double-click to toggle
+- [ ] How do you drop on top of a NSImageView in a row to add new image?
+- [ ] Refactor dropview out of ViewController to its own subclass thing
+- [ ] Ignore non image URLs
+- [ ] How to drop on rows to move in between rows
+- [ ] Does NSTableView need to implement drop stuff for things outside the table?
 
 ## Done
 
@@ -26,3 +28,6 @@
 - [x] Rename FickleApp to AppController?
 - [x] Rename `MainViewController` to `ViewController`?
 - [x] Don’t send “dark” script if already dark
+- [x] Add drag and drop to acquire background images (works in App Sandbox?)
+- [x] Figure out how to set the desktop image (NSWorkspace)
+- [x] Model for storing list of images and appearance modes
