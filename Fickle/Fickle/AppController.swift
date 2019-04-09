@@ -10,7 +10,7 @@ import Cocoa
 
 import os.log
 
-fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "Coordinator")
+fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "AppController")
 
 class AppController: NSObject {
 
