@@ -98,8 +98,6 @@ extension AppController: ImageListViewDelegate {
     }
 }
 
-fileprivate var lastSelection = -1
-
 extension AppController: NSTableViewDelegate {
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -110,6 +108,52 @@ extension AppController: NSTableViewDelegate {
         return 100
     }
 
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        let item = NSPasteboardItem()
+        item.setString("\(row)", forType: .string)
+        return item
+    }
+
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+
+        guard dropOperation == .above else { return [] }
+
+        tableView.draggingDestinationFeedbackStyle = .gap
+        return .move
+    }
+
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+
+        // Strings might be row integers
+        if let strings = info.draggingPasteboard.pasteboardItems {
+            let indexes = strings
+                .compactMap { $0.string(forType: .string) }
+                .compactMap { Int($0) }
+                .filter { $0 < data.count }
+            indexes.forEach { fromRow in
+                let toRow = fromRow > row ? row : row - 1
+                tableView.moveRow(at: fromRow, to: toRow)
+                data.swapAt(fromRow, toRow)
+            }
+            if !indexes.isEmpty {
+                tableView.selectRowIndexes([], byExtendingSelection: false)
+                return true
+            }
+        }
+
+        if let urls = info.draggingPasteboard.readObjects(forClasses: [NSURL.self], options: [:]) as? [URL] {
+            if urls.isEmpty { return false }
+            let themes = urls.map { Theme(backgroundImageURL: $0, appearance: .light) }
+                .filter { !data.contains($0) }
+            if themes.isEmpty { return false }
+
+            data.insert(contentsOf: themes, at: row)
+            tableView.insertRows(at: IndexSet(row...row + themes.count - 1), withAnimation: .slideDown)
+        }
+        tableView.selectRowIndexes([], byExtendingSelection: false)
+        return true
+    }
+
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard let tableView = notification.object as? NSTableView else { return }
         let selection = tableView.selectedRow
@@ -118,14 +162,11 @@ extension AppController: NSTableViewDelegate {
             if let v = view.view(atColumn: 0) as? ThemeThumbnailView {
                 if row == selection {
                     v.select()
-                    return
-                }
-                if row == lastSelection {
+                } else {
                     v.unselect()
                 }
             }
         }
-        lastSelection = selection
     }
 }
 

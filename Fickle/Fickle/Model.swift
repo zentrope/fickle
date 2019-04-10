@@ -17,3 +17,12 @@ struct Theme: Codable {
     var backgroundImageURL: URL
     var appearance: Appearance
 }
+
+extension Theme: Equatable {
+    static func ==(lhs: Theme, rhs: Theme) -> Bool {
+        // It's possible to use the same background with different
+        // appearances. If that's not good, just check the URLs.
+        return lhs.backgroundImageURL == rhs.backgroundImageURL &&
+            lhs.appearance == rhs.appearance
+    }
+}

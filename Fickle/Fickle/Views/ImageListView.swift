@@ -49,8 +49,6 @@ class ImageListView: NSView, Constrained {
         self.init(frame: NSZeroRect)
         setupTableView()
         setupLayout()
-
-//        registerForDraggedTypes([NSPasteboard.PasteboardType.URL])
     }
 
     override func draw(_ dirtyRect: NSRect) {
@@ -69,7 +67,8 @@ class ImageListView: NSView, Constrained {
         container.automaticallyAdjustsContentInsets = false
         
         tableView = GridClipTableView()
-        tableView.intercellSpacing = NSMakeSize(0, 0)
+        tableView.registerForDraggedTypes([NSPasteboard.PasteboardType.URL, .string])
+        tableView.intercellSpacing = NSMakeSize(0, 4)
         tableView.selectionHighlightStyle = .none
         tableView.headerView = nil
         tableView.target = self

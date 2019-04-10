@@ -5,10 +5,8 @@
 - [ ] Add a context menu for each row (exec, set dark/light pref, delete)
 - [ ] Use a superimposed circle to indicate theme. Double-click to toggle
 - [ ] How do you drop on top of a NSImageView in a row to add new image?
-- [ ] Refactor dropview out of ViewController to its own subclass thing
 - [ ] Ignore non image URLs
-- [ ] How to drop on rows to move in between rows
-- [ ] Does NSTableView need to implement drop stuff for things outside the table?
+- [ ] Add a refresh button in case moving rows gets messed up
 
 ## Done
 
@@ -31,3 +29,7 @@
 - [x] Add drag and drop to acquire background images (works in App Sandbox?)
 - [x] Figure out how to set the desktop image (NSWorkspace)
 - [x] Model for storing list of images and appearance modes
+- [x] Refactor dropview out of ViewController to its own subclass thing
+- [x] How to drop on rows to move in between rows
+- [x] Does NSTableView need to implement drop stuff for things outside the table?
+- [x] Make sure list of themes contains no duplicates
