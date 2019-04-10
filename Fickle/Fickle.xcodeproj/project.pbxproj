@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5301A46F225A74B9000BE649 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5301A46E225A74B9000BE649 /* AppController.swift */; };
 		5301A471225A9F0D000BE649 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5301A470225A9F0D000BE649 /* main.swift */; };
+		53875266225DC3ED004D01F5 /* LightDarkToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53875265225DC3ED004D01F5 /* LightDarkToggle.swift */; };
+		53875268225DC543004D01F5 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53875267225DC543004D01F5 /* DismissButton.swift */; };
+		5387526A225DC627004D01F5 /* QuitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53875269225DC627004D01F5 /* QuitButton.swift */; };
 		53A27652225C4BA200904193 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A27651225C4BA200904193 /* Model.swift */; };
 		53A27655225C647C00904193 /* ThemeThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A27654225C647C00904193 /* ThemeThumbnailView.swift */; };
 		53A27657225C681700904193 /* Constrained.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A27656225C681700904193 /* Constrained.swift */; };
@@ -21,6 +24,9 @@
 /* Begin PBXFileReference section */
 		5301A46E225A74B9000BE649 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		5301A470225A9F0D000BE649 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		53875265225DC3ED004D01F5 /* LightDarkToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightDarkToggle.swift; sourceTree = "<group>"; };
+		53875267225DC543004D01F5 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
+		53875269225DC627004D01F5 /* QuitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuitButton.swift; sourceTree = "<group>"; };
 		53A27651225C4BA200904193 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		53A27654225C647C00904193 /* ThemeThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeThumbnailView.swift; sourceTree = "<group>"; };
 		53A27656225C681700904193 /* Constrained.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constrained.swift; sourceTree = "<group>"; };
@@ -60,6 +66,9 @@
 				53A27656225C681700904193 /* Constrained.swift */,
 				53FBAFB2225AE4320013CA0A /* ImageListView.swift */,
 				53A27654225C647C00904193 /* ThemeThumbnailView.swift */,
+				53875265225DC3ED004D01F5 /* LightDarkToggle.swift */,
+				53875267225DC543004D01F5 /* DismissButton.swift */,
+				53875269225DC627004D01F5 /* QuitButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -177,7 +186,10 @@
 				53A27655225C647C00904193 /* ThemeThumbnailView.swift in Sources */,
 				53A27652225C4BA200904193 /* Model.swift in Sources */,
 				5301A46F225A74B9000BE649 /* AppController.swift in Sources */,
+				53875266225DC3ED004D01F5 /* LightDarkToggle.swift in Sources */,
 				53A27657225C681700904193 /* Constrained.swift in Sources */,
+				5387526A225DC627004D01F5 /* QuitButton.swift in Sources */,
+				53875268225DC543004D01F5 /* DismissButton.swift in Sources */,
 				53DFE5D422596DE500911135 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

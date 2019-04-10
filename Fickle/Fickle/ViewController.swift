@@ -11,77 +11,13 @@ import os.log
 
 fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "ViewController")
 
-class DropView: NSView {
-    /// Ditch this an implement appropriate callbacks with tableView delegate.
-
-    var onUpdate: ((URL) -> Void)?
-
-    convenience init(_ onUpdate: @escaping ((URL) -> ())) {
-        self.init(frame: NSMakeRect(0, 0, 400, 600))
-        registerForDraggedTypes([NSPasteboard.PasteboardType.URL])
-        self.onUpdate = onUpdate
-    }
-
-    // MARK: - Drag/Drop handlers
-
-    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        return .copy
-    }
-
-    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-        return .copy
-    }
-
-    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        let pb = sender.draggingPasteboard
-        if let urls = pb.readObjects(forClasses: [NSURL.self], options: [:]) as? [URL] {
-            urls.forEach { onUpdate?($0) }
-        }
-        return true
-    }
-}
-
 class ViewController: NSViewController {
 
     // MARK: - Controls
 
-    private lazy var toggle: NSSegmentedControl = {
-        let control = NSSegmentedControl()
-        control.segmentCount = 2
-        control.setLabel("Light", forSegment: 0)
-        control.setLabel("Dark", forSegment: 1)
-        control.trackingMode = .selectOne
-        control.target = self
-        control.action = #selector(doToggle(_:))
-        control.segmentStyle = NSSegmentedControl.Style.roundRect
-        control.segmentDistribution = NSSegmentedControl.Distribution.fit
-        control.sizeToFit()
-        return control
-    }()
-
-    private lazy var dismissButton: NSButton = {
-        let button = NSButton()
-        button.bezelStyle = .texturedSquare
-        button.isBordered = false
-        button.target = self
-        button.action = #selector(doClose(_:))
-        button.image = NSImage(named: NSImage.stopProgressFreestandingTemplateName)
-        button.setButtonType(NSButton.ButtonType.momentaryPushIn)
-        button.isEnabled = true
-        return button
-    }()
-
-    private lazy var quitButton: NSButton = {
-        let button = NSButton()
-        button.bezelStyle = NSButton.BezelStyle.roundRect
-        button.target = self
-        button.action = #selector(doQuit(_:))
-        button.title = "Quit"
-        button.isEnabled = true
-        button.sizeToFit()
-        return button
-    }()
-
+    private var toggle         = LightDarkToggle()
+    private var dismissButton  = DismissButton()
+    private var quitButton     = QuitButton()
     private var tableContainer = ImageListView()
 
     // MARK: - AppController
@@ -91,17 +27,20 @@ class ViewController: NSViewController {
     // MARK: - Lifecycle
 
     override func loadView() {
-        //let view = NSView(frame: NSMakeRect(0, 0, 400, 600))
-        let view = DropView() { [weak self] url in
-            self?.appController?.dropURL(url: url)
-            self?.tableContainer.reload()
-        }
+        let view = NSView(frame: NSMakeRect(0, 0, 400, 600))
         view.wantsLayer = true
         self.view = view
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        toggle.target = self
+        toggle.action = #selector(doToggle(_:))
+        dismissButton.target = self
+        dismissButton.action = #selector(doClose(_:))
+        quitButton.target = self
+        quitButton.action = #selector(doQuit(_:))
 
         setupToggle()
         setupLayout()
