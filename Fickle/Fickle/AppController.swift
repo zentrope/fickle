@@ -20,6 +20,7 @@ class AppController: NSObject {
 
     override init() {
         super.init()
+        data = Storage.load()
     }
 
     // MARK: - Public Interface
@@ -37,11 +38,6 @@ class AppController: NSObject {
         case .dark:
             sendAppearanceScript(.dark)
         }
-    }
-
-    func dropURL(url: URL) {
-        print("Got a drop", url)
-        data.append(Theme(backgroundImageURL: url, appearance: .light))
     }
 
     func quit() {
@@ -98,22 +94,28 @@ extension AppController: ImageListViewDelegate {
     }
 }
 
+// MARK: - NSTableViewDelegate
+
 extension AppController: NSTableViewDelegate {
 
+    // View for given row/column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         return ThemeThumbnailView(theme: data[row])
     }
 
+    // Row height
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         return 100
     }
 
+    // Encode theme to be drag and dropped
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         let item = NSPasteboardItem()
         item.setString("\(row)", forType: .string)
         return item
     }
 
+    // Validate drop operation
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
 
         guard dropOperation == .above else { return [] }
@@ -122,6 +124,7 @@ extension AppController: NSTableViewDelegate {
         return .move
     }
 
+    // Accept the drop
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
 
         // Strings might be row integers
@@ -132,18 +135,26 @@ extension AppController: NSTableViewDelegate {
                 .filter { $0 < data.count }
             indexes.forEach { fromRow in
                 let toRow = fromRow > row ? row : row - 1
+                // TODO: Does this need to be atomic?
                 tableView.moveRow(at: fromRow, to: toRow)
                 data.swapAt(fromRow, toRow)
             }
             if !indexes.isEmpty {
                 tableView.selectRowIndexes([], byExtendingSelection: false)
+                Storage.save(data)
                 return true
             }
         }
 
         if let urls = info.draggingPasteboard.readObjects(forClasses: [NSURL.self], options: [:]) as? [URL] {
             if urls.isEmpty { return false }
-            let themes = urls.map { Theme(backgroundImageURL: $0, appearance: .light) }
+            let themes = urls.map {
+                Theme(backgroundImageURL: $0,
+                      appearance: .light,
+                      bookmark: try! $0.bookmarkData(options: [.withSecurityScope, .securityScopeAllowOnlyReadAccess], includingResourceValuesForKeys: nil, relativeTo: nil)
+                )
+
+                }
                 .filter { !data.contains($0) }
             if themes.isEmpty { return false }
 
@@ -151,9 +162,11 @@ extension AppController: NSTableViewDelegate {
             tableView.insertRows(at: IndexSet(row...row + themes.count - 1), withAnimation: .slideDown)
         }
         tableView.selectRowIndexes([], byExtendingSelection: false)
+        Storage.save(data)
         return true
     }
 
+    // Handle selection change
     func tableViewSelectionDidChange(_ notification: Notification) {
         guard let tableView = notification.object as? NSTableView else { return }
         let selection = tableView.selectedRow

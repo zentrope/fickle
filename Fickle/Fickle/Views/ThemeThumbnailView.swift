@@ -16,7 +16,21 @@ class ThemeThumbnailView: NSView, Constrained {
         self.init(frame: NSMakeRect(0, 0, 200, 100))
 
         image = NSImageView()
-        image.image = NSImage(byReferencing: theme.backgroundImageURL)
+
+        do {
+            var isStale: ObjCBool = false
+            let uuu = try NSURL(resolvingBookmarkData: theme.bookmark, options: [.withoutUI, .withoutMounting, .withSecurityScope], relativeTo: nil, bookmarkDataIsStale: &isStale) as URL
+
+            if uuu.startAccessingSecurityScopedResource() {
+                image.image = NSImage(byReferencing: uuu)
+                uuu.stopAccessingSecurityScopedResource()
+            }
+
+        }
+        catch let err {
+            print(" error: \(err.localizedDescription)")
+        }
+
         image.imageScaling = NSImageScaling.scaleAxesIndependently
         image.sizeThatFits(NSMakeSize(200, 100))
         image.isEditable = false

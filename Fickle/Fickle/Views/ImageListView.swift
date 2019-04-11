@@ -97,7 +97,7 @@ class ImageListView: NSView, Constrained {
 
     // MARK: - Actions
 
-    @objc func doubleAction(_ sender: NSTableView) {
+    @objc func doubleAction(_ sender: NSTableView) {        
         delegate?.selected(row: sender.clickedRow)
     }
 }

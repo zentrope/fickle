@@ -49,17 +49,14 @@ class ViewController: NSViewController {
         tableContainer.delegate = appController
         tableContainer.tableDelegate = appController
         tableContainer.tableDataSource = appController
+
+        tableContainer.reload()
     }
 
 
     override func viewDidAppear() {
         super.viewDidAppear()
     }
-
-    override func viewWillDisappear() {
-        super.viewWillDisappear()
-    }
-
     
     // MARK: - Implementation
 
