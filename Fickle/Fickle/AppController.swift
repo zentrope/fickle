@@ -78,6 +78,13 @@ class AppController: NSObject {
 
 extension AppController: ImageListViewDelegate {
 
+    func delete(row: Int) {
+        if row < data.count {
+            data.remove(at: row)
+            Storage.save(data)
+        }
+    }
+
     func selected(row: Int) {
         if row < 0 { return }
         let theme = data[row]

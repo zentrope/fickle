@@ -23,6 +23,7 @@ class GridClipTableView: NSTableView {
 
 protocol ImageListViewDelegate {
     func selected(row: Int)
+    func delete(row: Int)
 }
 
 // Rename theme list view?
@@ -30,6 +31,9 @@ class ImageListView: NSView, Constrained {
 
     private var container = NSScrollView()
     private var tableView = GridClipTableView()
+    private var contextMenu = NSMenu()
+
+    private var deleteMenu = NSMenuItem(title: "Delete", action: #selector(delete(_:)), keyEquivalent: "")
 
     var delegate: ImageListViewDelegate?
 
@@ -49,6 +53,9 @@ class ImageListView: NSView, Constrained {
         self.init(frame: NSZeroRect)
         setupTableView()
         setupLayout()
+
+        tableView.menu = contextMenu
+        contextMenu.addItem(deleteMenu)
     }
 
     override func draw(_ dirtyRect: NSRect) {
@@ -97,6 +104,13 @@ class ImageListView: NSView, Constrained {
 
     // MARK: - Actions
 
+    @objc func delete(_ sender: NSMenuItem) {
+        let row = tableView.clickedRow
+        guard row > -1 else { return }
+        tableView.removeRows(at: IndexSet([row]), withAnimation: NSTableView.AnimationOptions.slideUp)
+        delegate?.delete(row: row)
+    }
+    
     @objc func doubleAction(_ sender: NSTableView) {        
         delegate?.selected(row: sender.clickedRow)
     }
