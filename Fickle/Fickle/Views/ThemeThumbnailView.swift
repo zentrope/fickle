@@ -39,7 +39,7 @@ class ThemeThumbnailView: NSView, Constrained {
         wantsLayer = true
         layer?.borderWidth = 0
         layer?.borderColor = NSColor.controlAccentColor.cgColor
-        layer?.cornerRadius = 5
+        layer?.cornerRadius = 4
 
         addSubview(image)
 
@@ -53,10 +53,11 @@ class ThemeThumbnailView: NSView, Constrained {
 
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
+        layer?.borderColor = NSColor.controlAccentColor.cgColor
     }
 
     func select() {
-        layer?.borderWidth = 2
+        layer?.borderWidth = 3
     }
 
     func unselect() {
