@@ -6,6 +6,10 @@
 - [ ] Use a superimposed circle or triangle to indicate theme. Double-click to toggle
 - [ ] Ignore non image URLs
 - [ ] App icon
+- [ ] On start up, detect image and theme, pre-select in viewer if found
+- [ ] Float dismiss control over top of table?
+- [ ] Debug table view row move issue
+
 
 ## Done
 
@@ -43,3 +47,4 @@
 - [x] Change show in finder to reveal in finder
 - [x] Replace quit button with popup menu: quit, open desktop pics
 - [x] Offer to open folder `/Library/Desktop Pictures` (action submenu)
+- [x] Remove border from action menu, maybe toggle, too.

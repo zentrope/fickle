@@ -12,20 +12,21 @@ class ActionMenuButton: NSPopUpButton {
 
     convenience init() {
         self.init(frame: NSMakeRect(0, 0, 28, 32))
-        let menu = NSMenu()
+        let contextMenu = NSMenu()
         let icon = NSMenuItem()
         icon.image = NSImage(named: NSImage.actionTemplateName)
         icon.isHidden = true
         icon.title = ""
 
-        menu.addItem(icon)
+        contextMenu.addItem(icon)
 
-        self.menu = menu
-        self.pullsDown = true
-        self.bezelStyle = NSButton.BezelStyle.roundRect
-        self.isEnabled = true
-        self.preferredEdge = NSRectEdge.maxY
-        self.autoenablesItems = true
+        menu = contextMenu
+        pullsDown = true
+        bezelStyle = NSButton.BezelStyle.roundRect
+        isEnabled = true
+        preferredEdge = NSRectEdge.maxY
+        autoenablesItems = true
+        isBordered = false
 
         if let cell = self.cell as? NSPopUpButtonCell {
             cell.arrowPosition = NSPopUpButton.ArrowPosition.noArrow

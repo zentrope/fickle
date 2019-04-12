@@ -12,13 +12,13 @@ class LightDarkToggle: NSSegmentedControl {
 
     convenience init() {
         self.init(frame: NSZeroRect)
-        self.segmentCount = 2
-        self.setLabel("Light", forSegment: 0)
-        self.setLabel("Dark", forSegment: 1)
-        self.trackingMode = .selectOne
-        self.segmentStyle = NSSegmentedControl.Style.roundRect
-        self.segmentDistribution = NSSegmentedControl.Distribution.fit
-        self.sizeToFit()
+        segmentCount = 2
+        setLabel("Light", forSegment: 0)
+        setLabel("Dark", forSegment: 1)
+        trackingMode = .selectOne
+        segmentStyle = NSSegmentedControl.Style.roundRect
+        segmentDistribution = NSSegmentedControl.Distribution.fit
+        sizeToFit()
     }
 
     override func draw(_ dirtyRect: NSRect) {
