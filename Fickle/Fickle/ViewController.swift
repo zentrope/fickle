@@ -11,7 +11,7 @@ import os.log
 
 fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "ViewController")
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, Constrained {
 
     // MARK: - Controls
 
@@ -53,11 +53,6 @@ class ViewController: NSViewController {
         tableContainer.reload()
     }
 
-
-    override func viewDidAppear() {
-        super.viewDidAppear()
-    }
-    
     // MARK: - Implementation
 
     private var observer: NSKeyValueObservation?
@@ -85,11 +80,6 @@ class ViewController: NSViewController {
         view.addSubview(quitButton)
         view.addSubview(toggle)
         view.addSubview(tableContainer)
-
-        let constrain = { (field: NSView, constraints: [NSLayoutConstraint]) in
-            field.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate(constraints)
-        }
 
         constrain(dismissButton, [
             dismissButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 9),
