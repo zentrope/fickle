@@ -1,12 +1,18 @@
-# todo
+# Work to be done, ideas, etc
 
 ## Active
 
-- [ ] Add a context menu for each row (exec, set dark/light pref, delete)
+- [ ] Add a context menu for each row (exec)
+- [ ] Add a context menu for each row (show in finder)
+- [ ] Add a context menu for each row (set dark/light pref)
 - [ ] Use a superimposed circle to indicate theme. Double-click to toggle
-- [ ] How do you drop on top of a NSImageView in a row to add new image?
 - [ ] Ignore non image URLs
 - [ ] Add a refresh button in case moving rows gets messed up
+- [ ] Model image selection after Photos (rounded rect, offset border for actual image)
+- [ ] Offer to open folder `/Library/Desktop Pictures`
+- [ ] App icon
+- [ ] Position window just under menubar, no spacing
+- [ ] Replace quit button with popup menu: quit, open desktop pics
 
 ## Done
 
@@ -33,3 +39,7 @@
 - [x] How to drop on rows to move in between rows
 - [x] Does NSTableView need to implement drop stuff for things outside the table?
 - [x] Make sure list of themes contains no duplicates
+- [x] Save themes to disk, and reload, accounting for App Sandbox
+- [x] Saving themes should be on a background thread.
+- [x] Loading themes should be on a background thread
+- [x] Add a context menu for each row (delete)

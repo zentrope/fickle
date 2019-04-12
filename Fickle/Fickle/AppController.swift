@@ -20,7 +20,9 @@ class AppController: NSObject {
 
     override init() {
         super.init()
-        data = Storage.load()
+        Storage.load() {
+            self.data = $0
+        }
     }
 
     // MARK: - Public Interface

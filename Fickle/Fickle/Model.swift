@@ -49,34 +49,40 @@ struct Storage {
         try fileManager.createDirectory(at: parent, withIntermediateDirectories: true, attributes: [:])
     }
 
-    static func load() -> [Theme] {
-        do {
-            let url = location()
-            try ensure(url)
-            os_log("%{public}s", log: loadlog, "loading from `\(url)`")
-            let data = try Data(contentsOf: url)
-            let decoder = JSONDecoder()
-            let themes = try decoder.decode([Theme].self, from: data)
-            os_log("%{public}s", log: loadlog, "loaded \(themes.count) themes from local storage")
-            return themes
-        } catch let error {
-            os_log("%{public}s", log: loadlog, type: .error, error.localizedDescription)
-            return [Theme]()
+    static func load(_ completion: @escaping ([Theme]) -> ()) {
+        DispatchQueue.global().async {
+            do {
+                let url = location()
+                try ensure(url)
+                os_log("%{public}s", log: loadlog, "loading from `\(url)`")
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let themes = try decoder.decode([Theme].self, from: data)
+                os_log("%{public}s", log: loadlog, "loaded \(themes.count) themes from local storage")
+                completion(themes)
+                //return themes
+            } catch let error {
+                os_log("%{public}s", log: loadlog, type: .error, error.localizedDescription)
+                completion([Theme]())
+                //return [Theme]()
+            }
         }
     }
 
     static func save(_ themes: [Theme]) {
-        do {
-            let url = location()
-            try ensure(url)
-            os_log("%{public}s", log: savelog, "saving to `\(url)`")
-            let encoder = JSONEncoder()
-            encoder.outputFormatting = .prettyPrinted
-            let data = try encoder.encode(themes)
-            try data.write(to: url)
-            os_log("%{public}s", log: savelog, "saved \(themes.count) themes to local storage")
-        } catch let error {
-            os_log("%{public}s", log: savelog, type: .error, error.localizedDescription)
+        DispatchQueue.global().async {
+            do {
+                let url = location()
+                try ensure(url)
+                os_log("%{public}s", log: savelog, "saving to `\(url)`")
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .prettyPrinted
+                let data = try encoder.encode(themes)
+                try data.write(to: url)
+                os_log("%{public}s", log: savelog, "saved \(themes.count) themes to local storage")
+            } catch let error {
+                os_log("%{public}s", log: savelog, type: .error, error.localizedDescription)
+            }
         }
     }
 }
