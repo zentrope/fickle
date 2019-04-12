@@ -80,7 +80,7 @@ class ImageListView: NSView, Constrained {
         
         tableView = GridClipTableView()
         tableView.registerForDraggedTypes([NSPasteboard.PasteboardType.URL, .string])
-        tableView.intercellSpacing = NSMakeSize(0, 4)
+        tableView.intercellSpacing = NSMakeSize(4, 0)
         tableView.selectionHighlightStyle = .none
         tableView.headerView = nil
         tableView.target = self

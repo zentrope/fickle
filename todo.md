@@ -2,12 +2,12 @@
 
 ## Active
 
+- [ ] Change show in finder to reveal in finder
 - [ ] Add a context menu for each row (set dark/light pref)
 - [ ] Use a superimposed circle to indicate theme. Double-click to toggle
 - [ ] Ignore non image URLs
 - [ ] Add a refresh button in case moving rows gets messed up
-- [ ] Model image selection after Photos (rounded rect, offset border for actual image)
-- [ ] Offer to open folder `/Library/Desktop Pictures`
+- [ ] Offer to open folder `/Library/Desktop Pictures` (action submenu)
 - [ ] App icon
 - [ ] Replace quit button with popup menu: quit, open desktop pics
 
@@ -43,3 +43,4 @@
 - [x] Add a context menu for each row (exec)
 - [x] Add a context menu for each row (show in finder)
 - [x] Position window just under menubar, no spacing
+- [x] Model image selection after Photos (rounded rect, offset border for actual image)

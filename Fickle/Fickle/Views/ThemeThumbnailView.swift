@@ -39,13 +39,16 @@ class ThemeThumbnailView: NSView, Constrained {
         wantsLayer = true
         layer?.borderWidth = 0
         layer?.borderColor = NSColor.controlAccentColor.cgColor
+        layer?.cornerRadius = 5
+
         addSubview(image)
 
+        let buffer = CGFloat(4)
         constrain(image, [
-            image.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            image.bottomAnchor.constraint(equalTo: bottomAnchor)])
+            image.topAnchor.constraint(equalTo: topAnchor, constant: buffer),
+            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: buffer),
+            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -buffer),
+            image.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -buffer)])
     }
 
     override func draw(_ dirtyRect: NSRect) {
@@ -53,7 +56,7 @@ class ThemeThumbnailView: NSView, Constrained {
     }
 
     func select() {
-        layer?.borderWidth = 4
+        layer?.borderWidth = 2
     }
 
     func unselect() {
