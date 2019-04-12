@@ -17,8 +17,8 @@ class ViewController: NSViewController, Constrained {
 
     private var toggle         = LightDarkToggle()
     private var dismissButton  = DismissButton()
-    private var quitButton     = QuitButton()
     private var tableContainer = ImageListView()
+    private var actionButton   = ActionMenuButton()
 
     // MARK: - AppController
 
@@ -39,12 +39,11 @@ class ViewController: NSViewController, Constrained {
         toggle.action = #selector(doToggle(_:))
         dismissButton.target = self
         dismissButton.action = #selector(doClose(_:))
-        quitButton.target = self
-        quitButton.action = #selector(doQuit(_:))
 
         setupToggle()
         setupLayout()
         setupAppearanceObserver()
+        setupActionMenu()
 
         tableContainer.delegate = appController
         tableContainer.tableDelegate = appController
@@ -71,15 +70,25 @@ class ViewController: NSViewController, Constrained {
         return !isDark()
     }
 
+    private func setupActionMenu() {
+        let quit = NSMenuItem(title: "Quit", action: #selector(doQuit(_:)), keyEquivalent: "q")
+        let desk = NSMenuItem(title: "Reveal Apple Desktop Pictures", action: #selector(doDesktopPictures(_:)), keyEquivalent: "l")
+
+        actionButton.menu?.addItem(desk)
+        actionButton.menu?.addItem(NSMenuItem.separator())
+        actionButton.menu?.addItem(quit)
+    }
+
     private func setupToggle() {
         toggle.selectedSegment = isDark() ? 1 : 0
     }
 
     private func setupLayout() {
         view.addSubview(dismissButton)
-        view.addSubview(quitButton)
         view.addSubview(toggle)
         view.addSubview(tableContainer)
+
+        view.addSubview(actionButton)
 
         constrain(dismissButton, [
             dismissButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 9),
@@ -87,16 +96,16 @@ class ViewController: NSViewController, Constrained {
             dismissButton.widthAnchor.constraint(equalToConstant: 19)
             ])
 
-        constrain(quitButton, [
-            quitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
-            quitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            quitButton.widthAnchor.constraint(equalToConstant: quitButton.frame.width),
-            quitButton.heightAnchor.constraint(equalToConstant: quitButton.frame.height)
+        constrain(actionButton, [
+            actionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5),
+            actionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            actionButton.widthAnchor.constraint(equalToConstant: 28),
+            actionButton.heightAnchor.constraint(equalToConstant: toggle.frame.height)
             ])
 
         constrain(toggle, [
-            toggle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            toggle.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            toggle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            toggle.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5),
             toggle.heightAnchor.constraint(equalToConstant: toggle.frame.height),
             toggle.widthAnchor.constraint(equalToConstant: toggle.frame.width)
         ])
@@ -104,12 +113,16 @@ class ViewController: NSViewController, Constrained {
         constrain(tableContainer, [
             tableContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableContainer.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 10),
-            tableContainer.bottomAnchor.constraint(equalTo: toggle.topAnchor, constant: -10)
+            tableContainer.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 5),
+            tableContainer.bottomAnchor.constraint(equalTo: toggle.topAnchor, constant: -5)
         ])
     }
 
     // MARK: - Actions
+
+    @objc func doDesktopPictures(_ sender: Any) {
+        NSWorkspace.shared.open(URL(fileURLWithPath: "file:///Library/Desktop Pictures"))
+    }
 
     @objc func doQuit(_ sender: NSButton) {
         appController?.quit()
