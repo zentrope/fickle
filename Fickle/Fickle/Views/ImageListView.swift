@@ -34,6 +34,7 @@ class ImageListView: NSView, Constrained {
     private var contextMenu = NSMenu()
 
     private var deleteMenu = NSMenuItem(title: "Delete", action: #selector(delete(_:)), keyEquivalent: "")
+    private var selectMenu = NSMenuItem(title: "Select", action: #selector(select(_:)), keyEquivalent: "")
 
     var delegate: ImageListViewDelegate?
 
@@ -55,6 +56,7 @@ class ImageListView: NSView, Constrained {
         setupLayout()
 
         tableView.menu = contextMenu
+        contextMenu.addItem(selectMenu)
         contextMenu.addItem(deleteMenu)
     }
 
@@ -79,7 +81,7 @@ class ImageListView: NSView, Constrained {
         tableView.selectionHighlightStyle = .none
         tableView.headerView = nil
         tableView.target = self
-        tableView.doubleAction = #selector(doubleAction(_:))
+        tableView.doubleAction = #selector(select(_:))
 
         let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("column"))
         column.isEditable = false
@@ -111,7 +113,9 @@ class ImageListView: NSView, Constrained {
         delegate?.delete(row: row)
     }
     
-    @objc func doubleAction(_ sender: NSTableView) {        
-        delegate?.selected(row: sender.clickedRow)
+    @objc func select(_ sender: Any) {
+        let row = tableView.clickedRow
+        guard row > -1 else { return }
+        delegate?.selected(row: row)
     }
 }
