@@ -9,7 +9,6 @@
 - [ ] Model image selection after Photos (rounded rect, offset border for actual image)
 - [ ] Offer to open folder `/Library/Desktop Pictures`
 - [ ] App icon
-- [ ] Position window just under menubar, no spacing
 - [ ] Replace quit button with popup menu: quit, open desktop pics
 
 ## Done
@@ -43,3 +42,4 @@
 - [x] Add a context menu for each row (delete)
 - [x] Add a context menu for each row (exec)
 - [x] Add a context menu for each row (show in finder)
+- [x] Position window just under menubar, no spacing

@@ -110,7 +110,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         let loc = NSEvent.mouseLocation
-        let newLoc = NSMakePoint(loc.x - 102, loc.y - 30)
+        let newLoc = NSMakePoint(loc.x - 102, loc.y)
         window.setFrameTopLeftPoint(newLoc)
         window.makeKeyAndOrderFront(nil)
         window.level = .statusBar
