@@ -126,7 +126,7 @@ extension AppController: ImageListViewDelegate {
         }
     }
 
-    func show(row: Int) {
+    func reveal(row: Int) {
         let theme = data[row]
         sendShowInFinderTemplate(theme.backgroundImageURL)
     }

@@ -23,7 +23,7 @@ class GridClipTableView: NSTableView {
 
 protocol ImageListViewDelegate {
     func selected(row: Int)
-    func show(row: Int)
+    func reveal(row: Int)
     func delete(row: Int)
 }
 
@@ -35,8 +35,8 @@ class ImageListView: NSView, Constrained {
     private var contextMenu = NSMenu()
 
     private var deleteMenu = NSMenuItem(title: "Delete", action: #selector(delete(_:)), keyEquivalent: "")
+    private var revealMenu = NSMenuItem(title: "Reveal in Finder", action: #selector(show(_:)), keyEquivalent: "")
     private var selectMenu = NSMenuItem(title: "Select", action: #selector(select(_:)), keyEquivalent: "")
-    private var showMenu = NSMenuItem(title: "Show in Finder", action: #selector(show(_:)), keyEquivalent: "")
 
     var delegate: ImageListViewDelegate?
 
@@ -59,7 +59,7 @@ class ImageListView: NSView, Constrained {
 
         tableView.menu = contextMenu
         contextMenu.addItem(selectMenu)
-        contextMenu.addItem(showMenu)
+        contextMenu.addItem(revealMenu)
         contextMenu.addItem(deleteMenu)
     }
 
@@ -112,7 +112,7 @@ class ImageListView: NSView, Constrained {
     @objc func show(_ sender: Any) {
         let row = tableView.clickedRow
         guard row > -1 else { return }
-        delegate?.show(row: row)
+        delegate?.reveal(row: row)
     }
 
     @objc func delete(_ sender: NSMenuItem) {
