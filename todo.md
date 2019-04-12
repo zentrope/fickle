@@ -2,8 +2,6 @@
 
 ## Active
 
-- [ ] Add a context menu for each row (exec)
-- [ ] Add a context menu for each row (show in finder)
 - [ ] Add a context menu for each row (set dark/light pref)
 - [ ] Use a superimposed circle to indicate theme. Double-click to toggle
 - [ ] Ignore non image URLs
@@ -43,3 +41,5 @@
 - [x] Saving themes should be on a background thread.
 - [x] Loading themes should be on a background thread
 - [x] Add a context menu for each row (delete)
+- [x] Add a context menu for each row (exec)
+- [x] Add a context menu for each row (show in finder)

@@ -11,6 +11,7 @@ import Cocoa
 import os.log
 
 fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "AppController")
+fileprivate let scriptlog = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "ScriptRunner")
 
 class AppController: NSObject {
 
@@ -61,22 +62,46 @@ class AppController: NSObject {
     end tell
     """
 
+    private let showInFinderTemplate = """
+    set theFolder to (POSIX file "%@") as alias
+    set theFile to (POSIX FILE "%@") as alias
+    tell application "Finder"
+        activate
+        if window 1 exists then
+            set target of window 1 to theFolder
+        end if
+        reveal theFile
+    end tell
+    """
+
+    private func sendShowInFinderTemplate(_ url: URL) {
+        let file = url.path
+        let path = url.deletingLastPathComponent().path
+        let source = String(format: showInFinderTemplate, path, file)
+        execScript(source, to: "show '\(file)' in finder")
+    }
+
     private func sendAppearanceScript(_ mode: AppearanceMode) {
         let source = String(format: template, mode.rawValue)
+        execScript(source, to: "set appearance to '\(mode)'")
+    }
+
+    private func execScript(_ source: String, to name: String) {
         var error: NSDictionary?
         if let script = NSAppleScript(source: source) {
             if let msg = script.executeAndReturnError(&error).stringValue {
-                os_log("%{public}s", log: logger, "script return: \(msg)")
+                os_log("%{public}s", log: scriptlog, "script return: \(msg)")
             } else {
-                os_log("%{public}s", log: logger, "script executed for \(mode) appearance")
+                os_log("%{public}s", log: scriptlog, "script executed to \(name)")
             }
             if let error = error {
-                os_log("%{public}s", log: logger, type: .error, "\(error)")
+                os_log("%{public}s", log: scriptlog, type: .error, "\(error)")
             }
         }
     }
 }
 
+// MARK: - ImageListViewDelegate
 
 extension AppController: ImageListViewDelegate {
 
@@ -88,7 +113,6 @@ extension AppController: ImageListViewDelegate {
     }
 
     func selected(row: Int) {
-        if row < 0 { return }
         let theme = data[row]
         guard let screen = NSScreen.main else { return }
         guard let options = NSWorkspace.shared.desktopImageOptions(for: screen) else { return }
@@ -100,6 +124,11 @@ extension AppController: ImageListViewDelegate {
         catch let error {
             os_log("%{public}s", log: logger, type: .error, error.localizedDescription)
         }
+    }
+
+    func show(row: Int) {
+        let theme = data[row]
+        sendShowInFinderTemplate(theme.backgroundImageURL)
     }
 }
 
