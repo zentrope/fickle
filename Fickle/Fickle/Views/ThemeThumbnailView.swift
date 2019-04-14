@@ -8,14 +8,12 @@
 
 import Cocoa
 
-class ThemeThumbnailView: NSView, Constrained {
+class ThemeThumbnailView: NSTableCellView, Constrained {
 
     var image = NSImageView()
 
     convenience init(theme: Theme) {
         self.init(frame: NSMakeRect(0, 0, 200, 100))
-
-        image = NSImageView()
 
         do {
             var isStale: ObjCBool = false

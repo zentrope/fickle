@@ -155,10 +155,7 @@ extension AppController: NSTableViewDelegate {
 
     // Validate drop operation
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-
         guard dropOperation == .above else { return [] }
-
-        tableView.draggingDestinationFeedbackStyle = .gap
         return .move
     }
 
@@ -171,11 +168,24 @@ extension AppController: NSTableViewDelegate {
                 .compactMap { $0.string(forType: .string) }
                 .compactMap { Int($0) }
                 .filter { $0 < data.count }
-            indexes.forEach { fromRow in
-                let toRow = fromRow > row ? row : row - 1
-                // TODO: Does this need to be atomic?
-                tableView.moveRow(at: fromRow, to: toRow)
-                data.swapAt(fromRow, toRow)
+
+            if !indexes.isEmpty {
+                data.move(with: IndexSet(indexes) , to: row)
+                tableView.beginUpdates()
+                var oldIndexOffset = 0
+                var newIndexOffset = 0
+                for oldIndex in indexes {
+                    if oldIndex < row {
+                        tableView.removeRows(at: IndexSet([oldIndex + oldIndexOffset]), withAnimation: .effectFade)
+                        tableView.insertRows(at: IndexSet([row - 1]), withAnimation: .effectGap)
+                        oldIndexOffset -= 1
+                    } else {
+                        tableView.removeRows(at: IndexSet([oldIndex]), withAnimation: .effectFade)
+                        tableView.insertRows(at: IndexSet([row + newIndexOffset]), withAnimation: .effectGap)
+                        newIndexOffset += 1
+                    }
+                }
+                tableView.endUpdates()
             }
             if !indexes.isEmpty {
                 tableView.selectRowIndexes([], byExtendingSelection: false)
@@ -197,7 +207,7 @@ extension AppController: NSTableViewDelegate {
             if themes.isEmpty { return false }
 
             data.insert(contentsOf: themes, at: row)
-            tableView.insertRows(at: IndexSet(row...row + themes.count - 1), withAnimation: .slideDown)
+            tableView.insertRows(at: IndexSet(row...row + themes.count - 1), withAnimation: .effectGap)
         }
         tableView.selectRowIndexes([], byExtendingSelection: false)
         Storage.save(data)
@@ -228,5 +238,4 @@ extension AppController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return data.count
     }
-
 }

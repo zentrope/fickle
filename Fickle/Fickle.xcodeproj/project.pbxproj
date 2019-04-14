@@ -12,6 +12,7 @@
 		53655F8B22606C4800B13D49 /* ActionMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53655F8A22606C4800B13D49 /* ActionMenuButton.swift */; };
 		53875266225DC3ED004D01F5 /* LightDarkToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53875265225DC3ED004D01F5 /* LightDarkToggle.swift */; };
 		53875268225DC543004D01F5 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53875267225DC543004D01F5 /* DismissButton.swift */; };
+		5392F62D226317A800963F68 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5392F62C226317A800963F68 /* Array+Extension.swift */; };
 		53A27652225C4BA200904193 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A27651225C4BA200904193 /* Model.swift */; };
 		53A27655225C647C00904193 /* ThemeThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A27654225C647C00904193 /* ThemeThumbnailView.swift */; };
 		53A27657225C681700904193 /* Constrained.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A27656225C681700904193 /* Constrained.swift */; };
@@ -27,6 +28,7 @@
 		53655F8A22606C4800B13D49 /* ActionMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuButton.swift; sourceTree = "<group>"; };
 		53875265225DC3ED004D01F5 /* LightDarkToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightDarkToggle.swift; sourceTree = "<group>"; };
 		53875267225DC543004D01F5 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
+		5392F62C226317A800963F68 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		53A27651225C4BA200904193 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		53A27654225C647C00904193 /* ThemeThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeThumbnailView.swift; sourceTree = "<group>"; };
 		53A27656225C681700904193 /* Constrained.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constrained.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				53DFE5D522596DE500911135 /* ViewController.swift */,
 				53A27651225C4BA200904193 /* Model.swift */,
 				53A27656225C681700904193 /* Constrained.swift */,
+				5392F62C226317A800963F68 /* Array+Extension.swift */,
 				53A2765A225C7BBB00904193 /* Views */,
 				53A27653225C4BAC00904193 /* Metadata */,
 			);
@@ -183,6 +186,7 @@
 				53DFE5D622596DE500911135 /* ViewController.swift in Sources */,
 				5301A471225A9F0D000BE649 /* main.swift in Sources */,
 				53FBAFB3225AE4320013CA0A /* ImageListView.swift in Sources */,
+				5392F62D226317A800963F68 /* Array+Extension.swift in Sources */,
 				53A27655225C647C00904193 /* ThemeThumbnailView.swift in Sources */,
 				53A27652225C4BA200904193 /* Model.swift in Sources */,
 				5301A46F225A74B9000BE649 /* AppController.swift in Sources */,

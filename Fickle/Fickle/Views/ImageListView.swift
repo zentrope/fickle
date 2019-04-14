@@ -75,8 +75,6 @@ class ImageListView: NSView, Constrained {
 
     private func setupTableView() {
         container.borderType = NSBorderType.noBorder
-        container.contentInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        container.automaticallyAdjustsContentInsets = false
         
         tableView = GridClipTableView()
         tableView.registerForDraggedTypes([NSPasteboard.PasteboardType.URL, .string])
@@ -118,8 +116,8 @@ class ImageListView: NSView, Constrained {
     @objc func delete(_ sender: NSMenuItem) {
         let row = tableView.clickedRow
         guard row > -1 else { return }
-        tableView.removeRows(at: IndexSet([row]), withAnimation: NSTableView.AnimationOptions.slideUp)
         delegate?.delete(row: row)
+        tableView.removeRows(at: IndexSet([row]), withAnimation: .effectFade)
     }
     
     @objc func select(_ sender: Any) {
