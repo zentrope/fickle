@@ -2,14 +2,23 @@
 
 ## Active
 
+
+- [ ] Try using an emoji for the button title rather than a template image
+- [ ] Revisit using a popup for the window
+- [ ] Create a simple NSView derived subclass for the appearance icon, override mouse actions, then constrain it in the thumbnail class
+- [ ] Rename ThemeThumbnail to just Thumbnail (simplify names)
+- [ ] Use an extension on Bundle to read themes.json and fatal if fails
+
+	   func load<T: Decodable>(from: f String) -> T {
+	      ...
+	   }
+
 - [ ] Add a context menu for each row (set dark/light pref)
 - [ ] Use a superimposed circle or triangle to indicate theme. Double-click to toggle
 - [ ] Ignore non image URLs
 - [ ] App icon
 - [ ] On start up, detect image and theme, pre-select in viewer if found
 - [ ] Float dismiss control over top of table?
-- [ ] Debug table view row move issue
-
 
 ## Done
 
@@ -48,3 +57,4 @@
 - [x] Replace quit button with popup menu: quit, open desktop pics
 - [x] Offer to open folder `/Library/Desktop Pictures` (action submenu)
 - [x] Remove border from action menu, maybe toggle, too.
+- [x] Debug table view row move issue (.gap effect is broken)
