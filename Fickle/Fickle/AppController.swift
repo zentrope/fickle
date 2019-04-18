@@ -132,7 +132,7 @@ extension AppController: NSTableViewDelegate {
 
     // View for given row/column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        return ThemeThumbnailView(theme: data[row])
+        return Thumbnail(theme: data[row])
     }
 
     // Row height
@@ -214,7 +214,7 @@ extension AppController: NSTableViewDelegate {
         let selection = tableView.selectedRow
 
         tableView.enumerateAvailableRowViews { (view, row) in
-            if let v = view.view(atColumn: 0) as? ThemeThumbnailView {
+            if let v = view.view(atColumn: 0) as? Thumbnail {
                 if row == selection {
                     v.select()
                 } else {

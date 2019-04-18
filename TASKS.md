@@ -3,8 +3,9 @@
 ## Active
 
 
+- [ ] Disable hightlight of table cell when context menu is invoked (impossible?) (revise highlight strategy?)
+- [ ] Use row actions, gesture right/left for associating appearance with background?
 - [ ] Create a simple NSView derived subclass for the appearance icon, override mouse actions, then constrain it in the thumbnail class
-- [ ] Rename ThemeThumbnail to just Thumbnail (simplify names)
 - [ ] Use an extension on Bundle to read themes.json and fatal if fails
 
 	   func load<T: Decodable>(from: f String) -> T {
@@ -58,3 +59,4 @@
 - [x] Try using an emoji for the button title rather than a template image (too small)
 - [x] Revisit using a popup for the window
 - [x] Float dismiss control over top of table? (nope: popover does what I like)
+- [x] Rename ThemeThumbnail to just Thumbnail (simplify names)

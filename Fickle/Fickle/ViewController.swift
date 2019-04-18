@@ -15,7 +15,7 @@ class ViewController: NSViewController, Constrained {
 
     // MARK: - Controls
 
-    private var toggle         = LightDarkToggle()
+    private var toggle         = AppearanceToggle()
     private var themeList      = ImageListView()
     private var actionButton   = ActionMenuButton()
 

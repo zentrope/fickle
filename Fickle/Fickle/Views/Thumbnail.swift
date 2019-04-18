@@ -1,5 +1,5 @@
 //
-//  ThemeThumbnailView.swift
+//  Thumbnail.swift
 //  Fickle
 //
 //  Created by Keith Irwin on 4/8/19.
@@ -8,12 +8,13 @@
 
 import Cocoa
 
-class ThemeThumbnailView: NSTableCellView, Constrained {
+class Thumbnail: NSTableCellView, Constrained {
 
     var image = NSImageView()
 
     convenience init(theme: Theme) {
         self.init(frame: NSMakeRect(0, 0, 200, 100))
+        focusRingType = .none
 
         do {
             var isStale: ObjCBool = false
@@ -33,7 +34,8 @@ class ThemeThumbnailView: NSTableCellView, Constrained {
         image.sizeThatFits(NSMakeSize(200, 100))
         image.isEditable = false
         image.wantsLayer = true
-
+        image.focusRingType = .none
+        
         wantsLayer = true
         layer?.borderWidth = 0
         layer?.borderColor = NSColor.controlAccentColor.cgColor

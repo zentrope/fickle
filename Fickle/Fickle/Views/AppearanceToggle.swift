@@ -1,5 +1,5 @@
 //
-//  LightDarkToggle.swift
+//  AppearanceToggle.swift
 //  Fickle
 //
 //  Created by Keith Irwin on 4/9/19.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class LightDarkToggle: NSSegmentedControl {
+class AppearanceToggle: NSSegmentedControl {
 
     convenience init() {
         self.init(frame: NSZeroRect)
