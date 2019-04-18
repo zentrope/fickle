@@ -15,8 +15,6 @@ fileprivate let scriptlog = OSLog(subsystem: Bundle.main.bundleIdentifier!, cate
 
 class AppController: NSObject {
 
-    weak var mainWindow: NSWindow?
-
     var data = [Theme]()
 
     override init() {
@@ -46,10 +44,6 @@ class AppController: NSObject {
     func quit() {
         NSApp.activate(ignoringOtherApps: true)
         NSApp.terminate(self)
-    }
-
-    func close() {
-        mainWindow?.close()
     }
 
     // MARK: - Implementation details

@@ -16,8 +16,7 @@ class ViewController: NSViewController, Constrained {
     // MARK: - Controls
 
     private var toggle         = LightDarkToggle()
-    private var dismissButton  = DismissButton()
-    private var tableContainer = ImageListView()
+    private var themeList      = ImageListView()
     private var actionButton   = ActionMenuButton()
 
     // MARK: - AppController
@@ -27,7 +26,7 @@ class ViewController: NSViewController, Constrained {
     // MARK: - Lifecycle
 
     override func loadView() {
-        let view = NSView(frame: NSMakeRect(0, 0, 400, 600))
+        let view = NSView(frame: NSMakeRect(0, 0, 200, 600))
         view.wantsLayer = true
         self.view = view
     }
@@ -37,19 +36,31 @@ class ViewController: NSViewController, Constrained {
 
         toggle.target = self
         toggle.action = #selector(doToggle(_:))
-        dismissButton.target = self
-        dismissButton.action = #selector(doClose(_:))
 
         setupToggle()
         setupLayout()
         setupAppearanceObserver()
         setupActionMenu()
 
-        tableContainer.delegate = appController
-        tableContainer.tableDelegate = appController
-        tableContainer.tableDataSource = appController
+        themeList.delegate = appController
+        themeList.tableDelegate = appController
+        themeList.tableDataSource = appController
 
-        tableContainer.reload()
+        themeList.reload()
+    }
+
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        topper?.constant = 8
+    }
+
+    // MARK: - Public functions
+
+    func setDetached() {
+        NSAnimationContext.runAnimationGroup { (ctx) in
+            ctx.duration = 0.05
+            topper?.animator().constant = 24
+        }
     }
 
     // MARK: - Implementation
@@ -63,7 +74,7 @@ class ViewController: NSViewController, Constrained {
     }
 
     private func isDark() -> Bool {
-        return view.effectiveAppearance.name == .darkAqua
+        return view.effectiveAppearance.bestMatch(from: [.darkAqua]) == .darkAqua
     }
 
     private func isLight() -> Bool {
@@ -83,18 +94,12 @@ class ViewController: NSViewController, Constrained {
         toggle.selectedSegment = isDark() ? 1 : 0
     }
 
+    var topper: NSLayoutConstraint?
+
     private func setupLayout() {
-        view.addSubview(dismissButton)
         view.addSubview(toggle)
-        view.addSubview(tableContainer)
-
+        view.addSubview(themeList)
         view.addSubview(actionButton)
-
-        constrain(dismissButton, [
-            dismissButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 9),
-            dismissButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            dismissButton.widthAnchor.constraint(equalToConstant: 19)
-            ])
 
         constrain(actionButton, [
             actionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5),
@@ -110,11 +115,12 @@ class ViewController: NSViewController, Constrained {
             toggle.widthAnchor.constraint(equalToConstant: toggle.frame.width)
         ])
 
-        constrain(tableContainer, [
-            tableContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableContainer.topAnchor.constraint(equalTo: dismissButton.bottomAnchor, constant: 5),
-            tableContainer.bottomAnchor.constraint(equalTo: toggle.topAnchor, constant: -5)
+        topper = themeList.topAnchor.constraint(equalTo: view.topAnchor, constant: 8)
+        constrain(themeList, [
+            themeList.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            themeList.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topper!,
+            themeList.bottomAnchor.constraint(equalTo: toggle.topAnchor, constant: -5)
         ])
     }
 
@@ -126,10 +132,6 @@ class ViewController: NSViewController, Constrained {
 
     @objc func doQuit(_ sender: NSButton) {
         appController?.quit()
-    }
-
-    @objc func doClose(_ sender: NSButton) {
-        appController?.close()
     }
 
     @objc func doToggle(_ sender: NSSegmentedControl) {

@@ -17,77 +17,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var statusBar = NSStatusBar.system
     var statusBarItem = NSStatusItem()
-
-    var window: NSWindow?
-    var controller: ViewController?
-
     var appController = AppController()
+    var popover: NSPopover?
 
     // MARK: - Lifecycle
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        os_log("%{public}s", log: logger, "initializing application")
-        setupMenu()
-        setupWindow()
-        setupStatusItem()
+        statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusBarItem.button?.image = NSImage(named: NSImage.actionTemplateName)
+        statusBarItem.button?.target = self
+        statusBarItem.button?.action = #selector(showThemes(_:))
+
+        let controller = ViewController()
+        controller.appController = appController
+
+        let p = NSPopover()
+        p.delegate = self
+        p.contentViewController = controller
+        p.behavior = .applicationDefined
+        p.contentSize = NSMakeSize(200, 600)
+        p.animates = true
+
+        popover = p
+
         os_log("%{public}s", log: logger, "application launched")
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         os_log("%{public}s", log: logger, "application will terminate")
-    }
-
-    // MARK: - Setup
-
-    private func setupWindow() {
-        let width: CGFloat = 204
-        let size = NSMakeRect(0, 0, width, 600)
-        let mask: NSWindow.StyleMask = [.resizable, .fullSizeContentView, .titled]
-        let window = NSWindow(contentRect: size, styleMask: mask, backing: .buffered, defer: false)
-
-        window.isReleasedWhenClosed = false // So we can .close
-        window.isMovableByWindowBackground = true
-        window.titleVisibility = NSWindow.TitleVisibility.hidden
-        window.titlebarAppearsTransparent = true
-        window.showsToolbarButton = false
-        window.standardWindowButton(.zoomButton)?.isHidden = true
-        window.standardWindowButton(.miniaturizeButton)?.isHidden = true
-        window.standardWindowButton(.closeButton)?.isHidden = true
-        window.hasShadow = true
-        window.minSize = NSMakeSize(width, 450)
-        window.maxSize = NSMakeSize(width, 600)
-        window.isOpaque = false
-
-        controller = ViewController()
-        controller?.appController = appController
-
-        let content = window.contentView! as NSView
-        let view = controller?.view
-        content.addSubview(view!)
-
-        window.contentViewController = controller
-
-        appController.mainWindow = window
-        self.window = window
-    }
-
-    private func setupStatusItem() {
-        statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-
-        statusBarItem.button?.image = NSImage(named: NSImage.actionTemplateName)
-        statusBarItem.button?.target = self
-        statusBarItem.button?.action = #selector(buttonClicked(_:))
-    }
-
-    private func setupMenu() {
-        let mainMenu = NSMenu()
-        let appMenuItem = NSMenuItem()
-        mainMenu.addItem(appMenuItem)
-        let appMenu = NSMenu()
-        let appName = ProcessInfo.processInfo.processName
-        appMenu.addItem(withTitle: "Quit \(appName)", action: #selector(quitApp(_:)), keyEquivalent: "q")
-        appMenuItem.submenu = appMenu
-        NSApp.mainMenu = mainMenu
     }
 
     // MARK: - Actions
@@ -97,23 +54,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.terminate(sender)
     }
 
-    @objc func buttonClicked(_ sender: NSStatusBarButton) {
+    @objc func showThemes(_ sender: NSStatusBarButton) {
 
-        guard let window = window else {
-            os_log("%{public}s", log: logger, type: .error, "unable to load window")
-            return
+        guard let popover = popover else {
+            fatalError("Unable to find window.")
         }
 
-        if window.isVisible {
-            window.orderOut(nil)
-            return
+        if popover.isShown {
+            popover.close()
+        } else {
+            popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
         }
+    }
+}
 
-        let loc = NSEvent.mouseLocation
-        let newLoc = NSMakePoint(loc.x - 102, loc.y)
-        window.setFrameTopLeftPoint(newLoc)
-        window.makeKeyAndOrderFront(nil)
-        window.level = .statusBar
+extension AppDelegate: NSPopoverDelegate {
+
+    func popoverDidDetach(_ popover: NSPopover) {
+        if let vc = popover.contentViewController as? ViewController {
+            vc.setDetached()
+        }
     }
 
+    func popoverShouldDetach(_ popover: NSPopover) -> Bool {
+        return true
+    }
 }

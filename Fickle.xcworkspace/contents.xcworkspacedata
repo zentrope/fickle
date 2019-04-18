@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:readme.md">
+      location = "group:README.md">
    </FileRef>
    <FileRef
-      location = "group:todo.md">
+      location = "group:TASKS.md">
    </FileRef>
    <FileRef
       location = "group:Fickle/Fickle.xcodeproj">
