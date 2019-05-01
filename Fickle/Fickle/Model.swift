@@ -15,10 +15,21 @@ enum Appearance: String, Codable {
     case dark = "dark"
 }
 
-struct Theme: Codable {
+class Theme: Codable {
     var backgroundImageURL: URL
     var appearance: Appearance
     var bookmark: Data
+
+    init(backgroundImageURL: URL, appearance: Appearance, bookmark: Data) {
+        self.backgroundImageURL = backgroundImageURL
+        self.appearance = appearance
+        self.bookmark = bookmark
+    }
+
+    func toggleTheme() {
+        appearance = (appearance == .light) ? .dark : .light
+        NotificationCenter.default.post(name: .themeWasUpdated, object: self)
+    }
 }
 
 extension Theme: Equatable {

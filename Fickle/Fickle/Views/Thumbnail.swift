@@ -10,7 +10,7 @@ import Cocoa
 
 class Thumbnail: NSTableCellView, Constrained {
 
-    var image = NSImageView()
+    var image = ThemeImageView()
 
     convenience init(theme: Theme) {
         self.init(frame: NSMakeRect(0, 0, 200, 100))
@@ -30,12 +30,13 @@ class Thumbnail: NSTableCellView, Constrained {
             print(" error: \(err.localizedDescription)")
         }
 
+        image.theme = theme
         image.imageScaling = NSImageScaling.scaleAxesIndependently
         image.sizeThatFits(NSMakeSize(200, 100))
         image.isEditable = false
         image.wantsLayer = true
         image.focusRingType = .none
-        
+
         wantsLayer = true
         layer?.borderWidth = 0
         layer?.borderColor = NSColor.controlAccentColor.cgColor

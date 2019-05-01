@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5301A46F225A74B9000BE649 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5301A46E225A74B9000BE649 /* AppController.swift */; };
 		5301A471225A9F0D000BE649 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5301A470225A9F0D000BE649 /* main.swift */; };
+		53387D01227956FF00B2A64A /* ThemeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53387D00227956FF00B2A64A /* ThemeImageView.swift */; };
+		53387D032279711600B2A64A /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53387D022279711600B2A64A /* Notification+Extension.swift */; };
 		53655F8B22606C4800B13D49 /* ActionMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53655F8A22606C4800B13D49 /* ActionMenuButton.swift */; };
 		53875266225DC3ED004D01F5 /* AppearanceToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53875265225DC3ED004D01F5 /* AppearanceToggle.swift */; };
 		5392F62D226317A800963F68 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5392F62C226317A800963F68 /* Array+Extension.swift */; };
@@ -24,6 +26,8 @@
 /* Begin PBXFileReference section */
 		5301A46E225A74B9000BE649 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		5301A470225A9F0D000BE649 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		53387D00227956FF00B2A64A /* ThemeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeImageView.swift; sourceTree = "<group>"; };
+		53387D022279711600B2A64A /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		53655F8A22606C4800B13D49 /* ActionMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuButton.swift; sourceTree = "<group>"; };
 		53875265225DC3ED004D01F5 /* AppearanceToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceToggle.swift; sourceTree = "<group>"; };
 		5392F62C226317A800963F68 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 				53875265225DC3ED004D01F5 /* AppearanceToggle.swift */,
 				53FBAFB2225AE4320013CA0A /* ImageListView.swift */,
 				53A27654225C647C00904193 /* Thumbnail.swift */,
+				53387D00227956FF00B2A64A /* ThemeImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -97,6 +102,7 @@
 				53A27651225C4BA200904193 /* Model.swift */,
 				53A27656225C681700904193 /* Constrained.swift */,
 				5392F62C226317A800963F68 /* Array+Extension.swift */,
+				53387D022279711600B2A64A /* Notification+Extension.swift */,
 				53A2765A225C7BBB00904193 /* Views */,
 				53A27653225C4BAC00904193 /* Metadata */,
 			);
@@ -184,10 +190,12 @@
 				5301A471225A9F0D000BE649 /* main.swift in Sources */,
 				53FBAFB3225AE4320013CA0A /* ImageListView.swift in Sources */,
 				5392F62D226317A800963F68 /* Array+Extension.swift in Sources */,
+				53387D01227956FF00B2A64A /* ThemeImageView.swift in Sources */,
 				53A27655225C647C00904193 /* Thumbnail.swift in Sources */,
 				53A27652225C4BA200904193 /* Model.swift in Sources */,
 				5301A46F225A74B9000BE649 /* AppController.swift in Sources */,
 				53875266225DC3ED004D01F5 /* AppearanceToggle.swift in Sources */,
+				53387D032279711600B2A64A /* Notification+Extension.swift in Sources */,
 				53A27657225C681700904193 /* Constrained.swift in Sources */,
 				53655F8B22606C4800B13D49 /* ActionMenuButton.swift in Sources */,
 				53DFE5D422596DE500911135 /* AppDelegate.swift in Sources */,

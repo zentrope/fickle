@@ -22,6 +22,12 @@ class AppController: NSObject {
         Storage.load() {
             self.data = $0
         }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(themeDidUpdate), name: .themeWasUpdated, object: nil)
+    }
+
+    @objc func themeDidUpdate(_ notification: NSNotification) {
+        Storage.save(data)
     }
 
     // MARK: - Public Interface
@@ -114,6 +120,7 @@ extension AppController: ImageListViewDelegate {
         do {
             // NOTE: Setting options myself always dumps a stack trace.
             try NSWorkspace.shared.setDesktopImageURL(theme.backgroundImageURL, for: screen, options: options)
+            setAppearance(theme.appearance == .light ? AppearanceMode.light : AppearanceMode.dark)
         }
         catch let error {
             os_log("%{public}s", log: logger, type: .error, error.localizedDescription)
