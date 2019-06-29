@@ -1,5 +1,5 @@
 //
-//  AppController.swift
+//  ImageListView.swift
 //  Fickle
 //
 //  Created by Keith Irwin on 4/7/19.
@@ -7,139 +7,116 @@
 //
 
 import Cocoa
-
 import os.log
 
-fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "AppController")
-fileprivate let scriptlog = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "ScriptRunner")
+fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "ThemeTableView")
 
-class AppController: NSObject {
+class ThemeTableView: NSView, NSTableViewDataSource, NSTableViewDelegate {
 
-    var data = [Theme]()
-
-    override init() {
-        super.init()
-        Storage.load() {
-            self.data = $0
-        }
-
-        NotificationCenter.default.addObserver(self, selector: #selector(themeDidUpdate), name: .themeWasUpdated, object: nil)
+    enum Event {
+        case delete(themes: [Theme], index: Int)
+        case select(theme: Theme)
+        case reveal(theme: Theme)
     }
 
-    @objc func themeDidUpdate(_ notification: NSNotification) {
-        Storage.save(data)
+    var action: ((Event) -> Void)?
+
+    private class GridClipTableView: NSTableView {
+        override func drawGrid(inClipRect clipRect: NSRect) { }
     }
 
-    // MARK: - Public Interface
+    private var scrollView = NSScrollView()
+    private var tableView = GridClipTableView()
+    private var contextMenu = NSMenu()
 
-    enum AppearanceMode : String {
-        case dark = "true"
-        case light = "false"
+    private var deleteMenu = NSMenuItem(title: "Delete", action: #selector(delete(_:)), keyEquivalent: "")
+    private var revealMenu = NSMenuItem(title: "Reveal in Finder", action: #selector(show(_:)), keyEquivalent: "")
+    private var selectMenu = NSMenuItem(title: "Select", action: #selector(select(_:)), keyEquivalent: "")
+
+    private(set) var data = [Theme]()
+
+    convenience init() {
+        self.init(frame: .zero)
+
+        let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("column"))
+        column.isEditable = false
+
+        tableView = GridClipTableView()
+        tableView.registerForDraggedTypes([NSPasteboard.PasteboardType.URL, .string])
+        tableView.intercellSpacing = NSMakeSize(4, 0)
+        tableView.selectionHighlightStyle = .none
+        tableView.headerView = nil
+        tableView.target = self
+        tableView.doubleAction = #selector(select(_:))
+        tableView.addTableColumn(column)
+
+        scrollView.borderType = .noBorder
+        scrollView.documentView = tableView
+        scrollView.hasVerticalScroller = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+        addSubview(scrollView)
+
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            ])
+
+        tableView.menu = contextMenu
+        contextMenu.addItem(selectMenu)
+        contextMenu.addItem(revealMenu)
+        contextMenu.addItem(deleteMenu)
+
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.reloadData()
     }
 
-    func setAppearance(_ mode: AppController.AppearanceMode) {
-        switch mode {
-        case .light:
-            sendAppearanceScript(.light)
-
-        case .dark:
-            sendAppearanceScript(.dark)
-        }
+    func setData(_ data: [Theme]) {
+        self.data = data
+        reload()
     }
 
-    func quit() {
-        NSApp.activate(ignoringOtherApps: true)
-        NSApp.terminate(self)
+    func reload() {
+        tableView.reloadData()
     }
 
-    // MARK: - Implementation details
-
-    private let template = """
-    tell application "System Events"
-      tell appearance preferences
-        set dark mode to %@
-      end tell
-    end tell
-    """
-
-    private let showInFinderTemplate = """
-    set theFolder to (POSIX file "%@") as alias
-    set theFile to (POSIX FILE "%@") as alias
-    tell application "Finder"
-        activate
-        if window 1 exists then
-            set target of window 1 to theFolder
-        end if
-        reveal theFile
-    end tell
-    """
-
-    private func sendShowInFinderTemplate(_ url: URL) {
-        let file = url.path
-        let path = url.deletingLastPathComponent().path
-        let source = String(format: showInFinderTemplate, path, file)
-        execScript(source, to: "show '\(file)' in finder")
+    @objc func show(_ sender: Any) {
+        let row = tableView.clickedRow
+        guard row > -1 else { return }
+        action?(.reveal(theme: data[row]))
+        //NotificationCenter.default.post(name: .applicationDidClickRevealThemeLocation, object: self, userInfo: ["theme": data[row]])
     }
 
-    private func sendAppearanceScript(_ mode: AppearanceMode) {
-        let source = String(format: template, mode.rawValue)
-        execScript(source, to: "set appearance to '\(mode)'")
+    @objc func delete(_ sender: NSMenuItem) {
+        let row = tableView.clickedRow
+        guard row > -1 else { return }
+        action?(.delete(themes: data, index: row))
+        tableView.removeRows(at: IndexSet([row]), withAnimation: .effectFade)
+    }
+    
+    @objc func select(_ sender: Any) {
+        let row = tableView.clickedRow
+        guard row > -1 else { return }
+        action?(.select(theme: data[row]))
     }
 
-    private func execScript(_ source: String, to name: String) {
-        var error: NSDictionary?
-        if let script = NSAppleScript(source: source) {
-            if let msg = script.executeAndReturnError(&error).stringValue {
-                os_log("%{public}s", log: scriptlog, "script return: \(msg)")
-            } else {
-                os_log("%{public}s", log: scriptlog, "script executed to \(name)")
-            }
-            if let error = error {
-                os_log("%{public}s", log: scriptlog, type: .error, "\(error)")
-            }
-        }
-    }
-}
-
-// MARK: - ImageListViewDelegate
-
-extension AppController: ImageListViewDelegate {
-
-    func delete(row: Int) {
-        if row < data.count {
-            data.remove(at: row)
-            Storage.save(data)
-        }
-    }
-
-    func selected(row: Int) {
-        let theme = data[row]
-        guard let screen = NSScreen.main else { return }
-        guard let options = NSWorkspace.shared.desktopImageOptions(for: screen) else { return }
-
-        do {
-            // NOTE: Setting options myself always dumps a stack trace.
-            try NSWorkspace.shared.setDesktopImageURL(theme.backgroundImageURL, for: screen, options: options)
-            setAppearance(theme.appearance == .light ? AppearanceMode.light : AppearanceMode.dark)
-        }
-        catch let error {
-            os_log("%{public}s", log: logger, type: .error, error.localizedDescription)
-        }
-    }
-
-    func reveal(row: Int) {
-        let theme = data[row]
-        sendShowInFinderTemplate(theme.backgroundImageURL)
-    }
-}
-
-// MARK: - NSTableViewDelegate
-
-extension AppController: NSTableViewDelegate {
+    // MARK: NSTableViewDelegate
 
     // View for given row/column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        return Thumbnail(theme: data[row])
+        guard let identifier = tableColumn?.identifier else { return nil }
+        var cell: ThemeTableCell
+        if let oldcell = tableView.makeView(withIdentifier: identifier, owner: self) as? ThemeTableCell {
+            cell = oldcell
+        } else {
+            cell = ThemeTableCell(identifier: identifier)
+        }
+
+        cell.theme = data[row]
+        return cell
     }
 
     // Row height
@@ -221,7 +198,7 @@ extension AppController: NSTableViewDelegate {
         let selection = tableView.selectedRow
 
         tableView.enumerateAvailableRowViews { (view, row) in
-            if let v = view.view(atColumn: 0) as? Thumbnail {
+            if let v = view.view(atColumn: 0) as? ThemeTableCell {
                 if row == selection {
                     v.select()
                 } else {
@@ -230,11 +207,8 @@ extension AppController: NSTableViewDelegate {
             }
         }
     }
-}
 
-// MARK: - NSTableViewDataSource
-
-extension AppController: NSTableViewDataSource {
+    // MARK: NSTableViewDataSource
 
     func numberOfRows(in tableView: NSTableView) -> Int {
         return data.count

@@ -28,7 +28,7 @@ class Theme: Codable {
 
     func toggleTheme() {
         appearance = (appearance == .light) ? .dark : .light
-        NotificationCenter.default.post(name: .themeWasUpdated, object: self)
+        NotificationCenter.default.post(name: .applicationThemeWasUpdated, object: self)
     }
 }
 

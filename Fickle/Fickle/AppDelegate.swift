@@ -13,14 +13,11 @@ import os.log
 fileprivate let logger = OSLog(subsystem: Bundle.main.bundleIdentifier!, category: "AppDelegate")
 
 //@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
 
-    var statusBar = NSStatusBar.system
-    var statusBarItem = NSStatusItem()
-    var appController = AppController()
-    var popover: NSPopover?
-
-    // MARK: - Lifecycle
+    private var statusBar = NSStatusBar.system
+    private var statusBarItem = NSStatusItem()
+    private var popover: NSPopover?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -28,9 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusBarItem.button?.target = self
         statusBarItem.button?.action = #selector(showThemes(_:))
 
-        let controller = ViewController()
-        controller.appController = appController
-
+        let controller = ThemeViewController()
         let p = NSPopover()
         p.delegate = self
         p.contentViewController = controller
@@ -39,19 +34,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         p.animates = true
 
         popover = p
-
-        os_log("%{public}s", log: logger, "application launched")
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        os_log("%{public}s", log: logger, "application will terminate")
-    }
-
-    // MARK: - Actions
-
-    @objc func quitApp(_ sender: Any) {
-        os_log("%{public}s", log: logger, "app quit requested")
-        NSApp.terminate(sender)
     }
 
     @objc func showThemes(_ sender: NSStatusBarButton) {
@@ -66,13 +48,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             popover.show(relativeTo: sender.bounds, of: sender, preferredEdge: .maxY)
         }
     }
-}
 
-extension AppDelegate: NSPopoverDelegate {
+    // MARK: NSPopoverDelegate
 
     func popoverDidDetach(_ popover: NSPopover) {
-        if let vc = popover.contentViewController as? ViewController {
-            vc.setDetached()
+        if let vc = popover.contentViewController as? ThemeViewController {
+            vc.setDetachedAppearance()
         }
     }
 

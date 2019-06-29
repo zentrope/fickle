@@ -3,44 +3,42 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5301A46F225A74B9000BE649 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5301A46E225A74B9000BE649 /* AppController.swift */; };
 		5301A471225A9F0D000BE649 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5301A470225A9F0D000BE649 /* main.swift */; };
 		53387D01227956FF00B2A64A /* ThemeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53387D00227956FF00B2A64A /* ThemeImageView.swift */; };
 		53387D032279711600B2A64A /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53387D022279711600B2A64A /* Notification+Extension.swift */; };
-		53655F8B22606C4800B13D49 /* ActionMenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53655F8A22606C4800B13D49 /* ActionMenuButton.swift */; };
-		53875266225DC3ED004D01F5 /* AppearanceToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53875265225DC3ED004D01F5 /* AppearanceToggle.swift */; };
+		535776B822C732D000C00A93 /* ScriptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535776B722C732D000C00A93 /* ScriptManager.swift */; };
+		535776BB22C7438000C00A93 /* NSImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535776BA22C7438000C00A93 /* NSImage+Ext.swift */; };
+		535776C022C74B8200C00A93 /* ThemeControlBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535776BF22C74B8200C00A93 /* ThemeControlBar.swift */; };
 		5392F62D226317A800963F68 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5392F62C226317A800963F68 /* Array+Extension.swift */; };
 		53A27652225C4BA200904193 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A27651225C4BA200904193 /* Model.swift */; };
-		53A27655225C647C00904193 /* Thumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A27654225C647C00904193 /* Thumbnail.swift */; };
-		53A27657225C681700904193 /* Constrained.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A27656225C681700904193 /* Constrained.swift */; };
+		53A27655225C647C00904193 /* ThemeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A27654225C647C00904193 /* ThemeTableCell.swift */; };
 		53DFE5D422596DE500911135 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFE5D322596DE500911135 /* AppDelegate.swift */; };
-		53DFE5D622596DE500911135 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFE5D522596DE500911135 /* ViewController.swift */; };
+		53DFE5D622596DE500911135 /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DFE5D522596DE500911135 /* ThemeViewController.swift */; };
 		53DFE5D822596DE600911135 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53DFE5D722596DE600911135 /* Assets.xcassets */; };
-		53FBAFB3225AE4320013CA0A /* ImageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBAFB2225AE4320013CA0A /* ImageListView.swift */; };
+		53FBAFB3225AE4320013CA0A /* ThemeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FBAFB2225AE4320013CA0A /* ThemeTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5301A46E225A74B9000BE649 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		5301A470225A9F0D000BE649 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		53387D00227956FF00B2A64A /* ThemeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeImageView.swift; sourceTree = "<group>"; };
 		53387D022279711600B2A64A /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
-		53655F8A22606C4800B13D49 /* ActionMenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuButton.swift; sourceTree = "<group>"; };
-		53875265225DC3ED004D01F5 /* AppearanceToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceToggle.swift; sourceTree = "<group>"; };
+		535776B722C732D000C00A93 /* ScriptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptManager.swift; sourceTree = "<group>"; };
+		535776BA22C7438000C00A93 /* NSImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Ext.swift"; sourceTree = "<group>"; };
+		535776BF22C74B8200C00A93 /* ThemeControlBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeControlBar.swift; sourceTree = "<group>"; };
 		5392F62C226317A800963F68 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		53A27651225C4BA200904193 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		53A27654225C647C00904193 /* Thumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thumbnail.swift; sourceTree = "<group>"; };
-		53A27656225C681700904193 /* Constrained.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constrained.swift; sourceTree = "<group>"; };
+		53A27654225C647C00904193 /* ThemeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableCell.swift; sourceTree = "<group>"; };
 		53DFE5D022596DE500911135 /* Fickle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fickle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53DFE5D322596DE500911135 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		53DFE5D522596DE500911135 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		53DFE5D522596DE500911135 /* ThemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
 		53DFE5D722596DE600911135 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53DFE5DC22596DE600911135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53DFE5DD22596DE600911135 /* Fickle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fickle.entitlements; sourceTree = "<group>"; };
-		53FBAFB2225AE4320013CA0A /* ImageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListView.swift; sourceTree = "<group>"; };
+		53FBAFB2225AE4320013CA0A /* ThemeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +52,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		535776B922C7436A00C00A93 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5392F62C226317A800963F68 /* Array+Extension.swift */,
+				53387D022279711600B2A64A /* Notification+Extension.swift */,
+				535776BA22C7438000C00A93 /* NSImage+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		535776BC22C749F700C00A93 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				53A27651225C4BA200904193 /* Model.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		535776BD22C74A0A00C00A93 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				535776B722C732D000C00A93 /* ScriptManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		535776BE22C74A6100C00A93 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				535776BF22C74B8200C00A93 /* ThemeControlBar.swift */,
+				53387D00227956FF00B2A64A /* ThemeImageView.swift */,
+				53A27654225C647C00904193 /* ThemeTableCell.swift */,
+				53FBAFB2225AE4320013CA0A /* ThemeTableView.swift */,
+				53DFE5D522596DE500911135 /* ThemeViewController.swift */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
 		53A27653225C4BAC00904193 /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
@@ -62,18 +98,6 @@
 				53DFE5DD22596DE600911135 /* Fickle.entitlements */,
 			);
 			name = Metadata;
-			sourceTree = "<group>";
-		};
-		53A2765A225C7BBB00904193 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				53655F8A22606C4800B13D49 /* ActionMenuButton.swift */,
-				53875265225DC3ED004D01F5 /* AppearanceToggle.swift */,
-				53FBAFB2225AE4320013CA0A /* ImageListView.swift */,
-				53A27654225C647C00904193 /* Thumbnail.swift */,
-				53387D00227956FF00B2A64A /* ThemeImageView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		53DFE5C722596DE500911135 = {
@@ -97,13 +121,10 @@
 			children = (
 				5301A470225A9F0D000BE649 /* main.swift */,
 				53DFE5D322596DE500911135 /* AppDelegate.swift */,
-				5301A46E225A74B9000BE649 /* AppController.swift */,
-				53DFE5D522596DE500911135 /* ViewController.swift */,
-				53A27651225C4BA200904193 /* Model.swift */,
-				53A27656225C681700904193 /* Constrained.swift */,
-				5392F62C226317A800963F68 /* Array+Extension.swift */,
-				53387D022279711600B2A64A /* Notification+Extension.swift */,
-				53A2765A225C7BBB00904193 /* Views */,
+				535776B922C7436A00C00A93 /* Extensions */,
+				535776BE22C74A6100C00A93 /* MainView */,
+				535776BD22C74A0A00C00A93 /* Manager */,
+				535776BC22C749F700C00A93 /* Model */,
 				53A27653225C4BAC00904193 /* Metadata */,
 			);
 			path = Fickle;
@@ -137,7 +158,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = Zentrope;
 				TargetAttributes = {
 					53DFE5CF22596DE500911135 = {
@@ -154,7 +175,7 @@
 				};
 			};
 			buildConfigurationList = 53DFE5CB22596DE500911135 /* Build configuration list for PBXProject "Fickle" */;
-			compatibilityVersion = "Xcode 10.0";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -207,18 +228,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53DFE5D622596DE500911135 /* ViewController.swift in Sources */,
+				53DFE5D622596DE500911135 /* ThemeViewController.swift in Sources */,
 				5301A471225A9F0D000BE649 /* main.swift in Sources */,
-				53FBAFB3225AE4320013CA0A /* ImageListView.swift in Sources */,
+				53FBAFB3225AE4320013CA0A /* ThemeTableView.swift in Sources */,
 				5392F62D226317A800963F68 /* Array+Extension.swift in Sources */,
 				53387D01227956FF00B2A64A /* ThemeImageView.swift in Sources */,
-				53A27655225C647C00904193 /* Thumbnail.swift in Sources */,
+				53A27655225C647C00904193 /* ThemeTableCell.swift in Sources */,
 				53A27652225C4BA200904193 /* Model.swift in Sources */,
-				5301A46F225A74B9000BE649 /* AppController.swift in Sources */,
-				53875266225DC3ED004D01F5 /* AppearanceToggle.swift in Sources */,
+				535776C022C74B8200C00A93 /* ThemeControlBar.swift in Sources */,
+				535776BB22C7438000C00A93 /* NSImage+Ext.swift in Sources */,
+				535776B822C732D000C00A93 /* ScriptManager.swift in Sources */,
 				53387D032279711600B2A64A /* Notification+Extension.swift in Sources */,
-				53A27657225C681700904193 /* Constrained.swift in Sources */,
-				53655F8B22606C4800B13D49 /* ActionMenuButton.swift in Sources */,
 				53DFE5D422596DE500911135 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,6 +366,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Fickle/Fickle.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 5Y5389EUC6;
@@ -365,6 +386,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Fickle/Fickle.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 5Y5389EUC6;

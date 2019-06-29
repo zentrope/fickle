@@ -19,8 +19,6 @@ class ThemeImageView: NSImageView {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
 
-        // Drawing code here.
-
         guard let ctx = NSGraphicsContext.current?.cgContext else {
             return
         }
@@ -31,7 +29,6 @@ class ThemeImageView: NSImageView {
 
         ctx.setStrokeColor(theme.appearance == .light ? black : white)
         ctx.setFillColor(theme.appearance == .light ? white : black)
-        //ctx.setAlpha(0.8)
         ctx.setLineWidth(1)
         ctx.addEllipse(in: badgeRect)
         ctx.fillEllipse(in: badgeRect)
@@ -46,7 +43,6 @@ class ThemeImageView: NSImageView {
 
         let downAt = convert(event.locationInWindow, from: nil)
         if badgeRect.contains(downAt) && event.clickCount == 1 {
-            print("Double Boom")
             theme.toggleTheme()
             needsDisplay = true
             return

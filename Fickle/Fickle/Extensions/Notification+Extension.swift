@@ -9,5 +9,5 @@
 import Foundation
 
 extension Notification.Name {
-    static let themeWasUpdated = Notification.Name("theme-was-updated")
+    static let applicationThemeWasUpdated = Notification.Name("applicationThemeWasUpdated")
 }
